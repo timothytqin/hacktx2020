@@ -8,4 +8,9 @@ export default {
     gray4: '#F6F6F6',
     gray5: '#fff',
   },
+  typography: {
+    bold: {
+      fontWeight: '700',
+    },
+  },
 };

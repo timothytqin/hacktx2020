@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Coin from '../components/Coin';
 import Stars from './Stars';
-import c from '../const';
+import Theme from '../Theme';
 
 export default function ListingItem({ listing }) {
   return (
@@ -14,11 +14,13 @@ export default function ListingItem({ listing }) {
       <View style={styles.detailsPanel}>
         <Text style={styles.title}>{listing.name}</Text>
         <Text style={styles.subtitle}>
-          sold by <Text style={c.bold}>{listing.seller.name}</Text>{' '}
+          sold by{' '}
+          <Text style={Theme.typography.bold}>{listing.seller.name}</Text>{' '}
           <Stars stars={listing.seller.stars} />
         </Text>
         <Text style={styles.subtitle}>
-          <Text style={c.bold}>{listing.distance}</Text> miles away
+          <Text style={Theme.typography.bold}>{listing.distance}</Text> miles
+          away
         </Text>
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.bedBath}>

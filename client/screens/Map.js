@@ -6,6 +6,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import { FontAwesome } from '@expo/vector-icons';
 import Coin from '../components/Coin';
 import ListingItem from '../components/ListingItem';
+import Theme from '../Theme';
 
 const mapStyle = [
   {
@@ -175,10 +176,10 @@ export default function Map() {
       <View
         style={{
           width: '100%',
-          height: 30,
-          backgroundColor: '#121212',
-          alignItems: 'center',
-          justifyContent: 'center',
+          backgroundColor: Theme.colors.gray5,
+          paddingHorizontal: '5%',
+          paddingVertical: '2%',
+          height: 700,
         }}
       >
         <View
@@ -187,33 +188,20 @@ export default function Map() {
             height: 3,
             backgroundColor: '#525252',
             borderRadius: 5,
+            alignSelf: 'center',
           }}
         />
-      </View>
-      <View
-        style={{
-          width: '100%',
-          backgroundColor: '#121212',
-          justifyContent: 'center',
-          paddingHorizontal: '5%',
-          paddingVertical: '2%',
-        }}
-      >
         <Text
           style={{
             fontSize: 24,
-            fontWeight: '500',
+            fontWeight: '600',
             color: '#c4c4c4',
             backgroundColor: '#121212',
+            marginVertical: 20,
           }}
         >
           Looking for a place to stay?
         </Text>
-      </View>
-      <ScrollView
-        style={{ backgroundColor: '#121212' }}
-        contentContainerStyle={{ height: '100%', alignItems: 'center' }}
-      >
         <ListingItem
           listing={{
             name: '26 West Apartments',
@@ -228,7 +216,7 @@ export default function Map() {
             distance: 2,
           }}
         />
-      </ScrollView>
+      </View>
     </>
   );
 
@@ -244,7 +232,7 @@ export default function Map() {
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
-        customMapStyle={mapStyle}
+        // customMapStyle={mapStyle}
       >
         <Marker
           coordinate={{
@@ -257,7 +245,7 @@ export default function Map() {
       </MapView>
       <BottomSheet
         ref={sheetRef}
-        snapPoints={['40%', '3%']}
+        snapPoints={['70%', '10%']}
         initialSnap={1}
         borderRadius={25}
         renderContent={renderContent}
