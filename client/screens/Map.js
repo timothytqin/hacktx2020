@@ -1,169 +1,170 @@
-import React from "react";
-import { ScrollView, Text, View, Image } from "react-native";
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
-import Animated from "react-native-reanimated";
-import BottomSheet from "reanimated-bottom-sheet";
-import { FontAwesome } from "@expo/vector-icons";
-import Coin from "../components/Coin";
-import ListingItem from "../components/ListingItem";
+import React from 'react';
+import { ScrollView, Text, View, Image } from 'react-native';
+import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
+import Animated from 'react-native-reanimated';
+import BottomSheet from 'reanimated-bottom-sheet';
+import { FontAwesome } from '@expo/vector-icons';
+import Coin from '../components/Coin';
+import ListingItem from '../components/ListingItem';
+import Theme from '../Theme';
 
 const mapStyle = [
   {
-    elementType: "geometry",
+    elementType: 'geometry',
     stylers: [
       {
-        color: "#242f3e",
+        color: '#242f3e',
       },
     ],
   },
   {
-    elementType: "labels.text.fill",
+    elementType: 'labels.text.fill',
     stylers: [
       {
-        color: "#746855",
+        color: '#746855',
       },
     ],
   },
   {
-    elementType: "labels.text.stroke",
+    elementType: 'labels.text.stroke',
     stylers: [
       {
-        color: "#242f3e",
+        color: '#242f3e',
       },
     ],
   },
   {
-    featureType: "administrative.locality",
-    elementType: "labels.text.fill",
+    featureType: 'administrative.locality',
+    elementType: 'labels.text.fill',
     stylers: [
       {
-        color: "#d59563",
+        color: '#d59563',
       },
     ],
   },
   {
-    featureType: "poi",
-    elementType: "labels.text.fill",
+    featureType: 'poi',
+    elementType: 'labels.text.fill',
     stylers: [
       {
-        color: "#d59563",
+        color: '#d59563',
       },
     ],
   },
   {
-    featureType: "poi.park",
-    elementType: "geometry",
+    featureType: 'poi.park',
+    elementType: 'geometry',
     stylers: [
       {
-        color: "#263c3f",
+        color: '#263c3f',
       },
     ],
   },
   {
-    featureType: "poi.park",
-    elementType: "labels.text.fill",
+    featureType: 'poi.park',
+    elementType: 'labels.text.fill',
     stylers: [
       {
-        color: "#6b9a76",
+        color: '#6b9a76',
       },
     ],
   },
   {
-    featureType: "road",
-    elementType: "geometry",
+    featureType: 'road',
+    elementType: 'geometry',
     stylers: [
       {
-        color: "#38414e",
+        color: '#38414e',
       },
     ],
   },
   {
-    featureType: "road",
-    elementType: "geometry.stroke",
+    featureType: 'road',
+    elementType: 'geometry.stroke',
     stylers: [
       {
-        color: "#212a37",
+        color: '#212a37',
       },
     ],
   },
   {
-    featureType: "road",
-    elementType: "labels.text.fill",
+    featureType: 'road',
+    elementType: 'labels.text.fill',
     stylers: [
       {
-        color: "#9ca5b3",
+        color: '#9ca5b3',
       },
     ],
   },
   {
-    featureType: "road.highway",
-    elementType: "geometry",
+    featureType: 'road.highway',
+    elementType: 'geometry',
     stylers: [
       {
-        color: "#746855",
+        color: '#746855',
       },
     ],
   },
   {
-    featureType: "road.highway",
-    elementType: "geometry.stroke",
+    featureType: 'road.highway',
+    elementType: 'geometry.stroke',
     stylers: [
       {
-        color: "#1f2835",
+        color: '#1f2835',
       },
     ],
   },
   {
-    featureType: "road.highway",
-    elementType: "labels.text.fill",
+    featureType: 'road.highway',
+    elementType: 'labels.text.fill',
     stylers: [
       {
-        color: "#f3d19c",
+        color: '#f3d19c',
       },
     ],
   },
   {
-    featureType: "transit",
-    elementType: "geometry",
+    featureType: 'transit',
+    elementType: 'geometry',
     stylers: [
       {
-        color: "#2f3948",
+        color: '#2f3948',
       },
     ],
   },
   {
-    featureType: "transit.station",
-    elementType: "labels.text.fill",
+    featureType: 'transit.station',
+    elementType: 'labels.text.fill',
     stylers: [
       {
-        color: "#d59563",
+        color: '#d59563',
       },
     ],
   },
   {
-    featureType: "water",
-    elementType: "geometry",
+    featureType: 'water',
+    elementType: 'geometry',
     stylers: [
       {
-        color: "#17263c",
+        color: '#17263c',
       },
     ],
   },
   {
-    featureType: "water",
-    elementType: "labels.text.fill",
+    featureType: 'water',
+    elementType: 'labels.text.fill',
     stylers: [
       {
-        color: "#515c6d",
+        color: '#515c6d',
       },
     ],
   },
   {
-    featureType: "water",
-    elementType: "labels.text.stroke",
+    featureType: 'water',
+    elementType: 'labels.text.stroke',
     stylers: [
       {
-        color: "#17263c",
+        color: '#17263c',
       },
     ],
   },
@@ -174,54 +175,41 @@ export default function Map() {
     <>
       <View
         style={{
-          width: "100%",
-          height: 30,
-          backgroundColor: "#121212",
-          alignItems: "center",
-          justifyContent: "center",
+          width: '100%',
+          backgroundColor: Theme.colors.gray5,
+          paddingHorizontal: '5%',
+          paddingVertical: '2%',
+          height: 700,
         }}
       >
         <View
           style={{
-            width: "10%",
+            width: '10%',
             height: 3,
-            backgroundColor: "#525252",
+            backgroundColor: '#525252',
             borderRadius: 5,
+            alignSelf: 'center',
           }}
         />
-      </View>
-      <View
-        style={{
-          width: "100%",
-          backgroundColor: "#121212",
-          justifyContent: "center",
-          paddingHorizontal: "5%",
-          paddingVertical: "2%",
-        }}
-      >
         <Text
           style={{
             fontSize: 24,
-            fontWeight: "500",
-            color: "#c4c4c4",
-            backgroundColor: "#121212",
+            fontWeight: '600',
+            color: '#c4c4c4',
+            backgroundColor: '#121212',
+            marginVertical: 20,
           }}
         >
           Looking for a place to stay?
         </Text>
-      </View>
-      <ScrollView
-        style={{ backgroundColor: "#121212" }}
-        contentContainerStyle={{ height: "100%", alignItems: "center" }}
-      >
         <ListingItem
           listing={{
-            name: "26 West Apartments",
+            name: '26 West Apartments',
             bed: 3,
             bath: 3,
             cost: 2,
             seller: {
-              name: "Steve Han",
+              name: 'Steve Han',
               uid: 69,
               stars: 4,
             },
@@ -229,7 +217,7 @@ export default function Map() {
           }}
           displayCost={true}
         />
-      </ScrollView>
+      </View>
     </>
   );
 
@@ -245,7 +233,7 @@ export default function Map() {
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
-        customMapStyle={mapStyle}
+        // customMapStyle={mapStyle}
       >
         <Marker
           coordinate={{
@@ -274,7 +262,7 @@ export default function Map() {
       </MapView>
       <BottomSheet
         ref={sheetRef}
-        snapPoints={["40%", "3%"]}
+        snapPoints={['70%', '10%']}
         initialSnap={1}
         borderRadius={25}
         renderContent={renderContent}
