@@ -5,34 +5,35 @@ import Coin from '../components/Coin';
 import Stars from './Stars';
 import c from '../const';
 
-export default function ListingItem() {
+export default function ListingItem({ listing }) {
   return (
     <View style={styles.container}>
       <View style={styles.imagePanel}>
         <View style={styles.image} />
       </View>
       <View style={styles.detailsPanel}>
-        <Text style={styles.title}>26 West Apartment</Text>
+        <Text style={styles.title}>{listing.name}</Text>
         <Text style={styles.subtitle}>
-          sold by <Text style={c.bold}>Steve Han</Text> <Stars stars={4} />
+          sold by <Text style={c.bold}>{listing.seller.name}</Text>{' '}
+          <Stars stars={listing.seller.stars} />
         </Text>
         <Text style={styles.subtitle}>
-          <Text style={c.bold}>2</Text> miles away
+          <Text style={c.bold}>{listing.distance}</Text> miles away
         </Text>
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.bedBath}>
             <FontAwesome name="bed" size={13} color={'#c4c4c4'} />
-            <Text style={styles.bedBathQuantity}> 3</Text>
+            <Text style={styles.bedBathQuantity}> {listing.bed}</Text>
           </View>
           <View style={styles.bedBath}>
             <FontAwesome name="bath" size={13} color={'#c4c4c4'} />
-            <Text style={styles.bedBathQuantity}> 3</Text>
+            <Text style={styles.bedBathQuantity}> {listing.bath}</Text>
           </View>
         </View>
       </View>
       <View style={styles.coinPanel}>
         <Coin />
-        <Text style={styles.coinQuantity}>2</Text>
+        <Text style={styles.coinQuantity}>{listing.cost}</Text>
       </View>
     </View>
   );

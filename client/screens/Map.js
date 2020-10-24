@@ -214,7 +214,20 @@ export default function Map() {
         style={{ backgroundColor: '#121212' }}
         contentContainerStyle={{ height: '100%', alignItems: 'center' }}
       >
-        <ListingItem />
+        <ListingItem
+          listing={{
+            name: '26 West Apartments',
+            bed: 3,
+            bath: 3,
+            cost: 2,
+            seller: {
+              name: 'Steve Han',
+              uid: 69,
+              stars: 4,
+            },
+            distance: 2,
+          }}
+        />
       </ScrollView>
     </>
   );
@@ -231,6 +244,7 @@ export default function Map() {
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
+        customMapStyle={mapStyle}
       >
         <Marker
           coordinate={{
