@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import Coin from '../components/Coin';
 import Stars from './Stars';
 import Theme from '../Theme';
+import Coin from '../assets/token.svg';
 
 export default function ListingItem({ listing }) {
   return (
@@ -31,6 +31,7 @@ export default function ListingItem({ listing }) {
             <FontAwesome name="bath" size={15} color={Theme.colors.gray5} />
             <Text style={styles.bedBathQuantity}> {listing.bath}</Text>
           </View>
+          <Coin />
         </View>
       </View>
     </View>
