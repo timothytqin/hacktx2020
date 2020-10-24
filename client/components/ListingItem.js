@@ -24,59 +24,56 @@ export default function ListingItem({ listing }) {
         </Text>
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.bedBath}>
-            <FontAwesome name="bed" size={13} color={'#c4c4c4'} />
+            <FontAwesome name="bed" size={15} color={Theme.colors.gray5} />
             <Text style={styles.bedBathQuantity}> {listing.bed}</Text>
           </View>
           <View style={styles.bedBath}>
-            <FontAwesome name="bath" size={13} color={'#c4c4c4'} />
+            <FontAwesome name="bath" size={15} color={Theme.colors.gray5} />
             <Text style={styles.bedBathQuantity}> {listing.bath}</Text>
           </View>
         </View>
-      </View>
-      <View style={styles.coinPanel}>
-        <Coin />
-        <Text style={styles.coinQuantity}>{listing.cost}</Text>
       </View>
     </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
-    height: 100,
-    backgroundColor: '#373737',
-    borderRadius: 10,
+    width: '100%',
+    backgroundColor: Theme.colors.gray5,
+    borderRadius: 20,
     flexDirection: 'row',
     padding: 10,
   },
   imagePanel: {
-    flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 5,
   },
   image: {
-    width: 75,
-    height: 75,
-    borderRadius: 15,
+    width: 90,
+    height: 90,
+    borderRadius: 20,
     backgroundColor: '#696969',
   },
   detailsPanel: {
     flex: 5,
     marginHorizontal: 5,
   },
-  title: { fontWeight: '700', fontSize: 16, color: '#e3e3e3' },
-  subtitle: { color: '#c4c4c4', fontSize: 10, marginVertical: 1 },
+  title: { fontWeight: '700', fontSize: 20, color: Theme.colors.gray1 },
+  subtitle: { color: Theme.colors.gray2, fontSize: 14, marginVertical: 1 },
   bedBath: {
-    backgroundColor: '#1d1d1d',
-    padding: 7,
+    backgroundColor: Theme.colors.gray1,
+    paddingHorizontal: 8,
+    paddingVertical: 5,
     borderRadius: 7,
     flexDirection: 'row',
-    marginRight: 5,
+    marginRight: 10,
+    marginTop: 7,
   },
   bedBathQuantity: {
-    color: '#c4c4c4',
-    fontSize: 13,
-    fontWeight: '500',
+    color: Theme.colors.gray5,
+    fontSize: 15,
+    fontWeight: '600',
   },
   coinPanel: {
     flex: 1,

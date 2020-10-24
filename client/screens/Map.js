@@ -7,6 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import Coin from '../components/Coin';
 import ListingItem from '../components/ListingItem';
 import Theme from '../Theme';
+import { BlurView } from 'expo-blur';
 
 const mapStyle = [
   {
@@ -173,7 +174,8 @@ const mapStyle = [
 export default function Map() {
   const renderContent = () => (
     <>
-      <View
+      <BlurView
+        intensity={100}
         style={{
           width: '100%',
           backgroundColor: Theme.colors.gray5,
@@ -186,7 +188,7 @@ export default function Map() {
           style={{
             width: '10%',
             height: 3,
-            backgroundColor: '#525252',
+            backgroundColor: Theme.colors.gray2,
             borderRadius: 5,
             alignSelf: 'center',
           }}
@@ -194,9 +196,8 @@ export default function Map() {
         <Text
           style={{
             fontSize: 24,
-            fontWeight: '600',
-            color: '#c4c4c4',
-            backgroundColor: '#121212',
+            fontWeight: '700',
+            color: Theme.colors.primary,
             marginVertical: 20,
           }}
         >
@@ -216,7 +217,7 @@ export default function Map() {
             distance: 2,
           }}
         />
-      </View>
+      </BlurView>
     </>
   );
 
