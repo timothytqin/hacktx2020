@@ -31,7 +31,7 @@ export default function ListingItem({ listing }) {
             <FontAwesome name="bath" size={15} color={Theme.colors.gray5} />
             <Text style={styles.bedBathQuantity}> {listing.bath}</Text>
           </View>
-          <Coin />
+          <Coin width={'100%'} height={'100%'} />
         </View>
       </View>
     </View>
