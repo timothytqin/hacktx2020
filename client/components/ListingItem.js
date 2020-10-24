@@ -5,7 +5,7 @@ import Coin from "../components/Coin";
 import Stars from "./Stars";
 import c from "../const";
 
-export default function ListingItem({ listing }) {
+export default function ListingItem({ listing, displayCost }) {
   return (
     <View style={styles.container}>
       <View style={styles.imagePanel}>
@@ -31,10 +31,12 @@ export default function ListingItem({ listing }) {
           </View>
         </View>
       </View>
-      <View style={styles.coinPanel}>
-        <Coin />
-        <Text style={styles.coinQuantity}>{listing.cost}</Text>
-      </View>
+      {displayCost && (
+        <View style={styles.coinPanel}>
+          <Coin />
+          <Text style={styles.coinQuantity}>{listing.cost}</Text>
+        </View>
+      )}
     </View>
   );
 }

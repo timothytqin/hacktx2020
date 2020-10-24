@@ -227,6 +227,7 @@ export default function Map() {
             },
             distance: 2,
           }}
+          displayCost={true}
         />
       </ScrollView>
     </>
@@ -252,7 +253,23 @@ export default function Map() {
             latitude: 30.2880541,
           }}
         >
-          <Callout></Callout>
+          <Callout>
+            <ListingItem
+              listing={{
+                name: "26 West Apartments",
+                bed: 3,
+                bath: 3,
+                cost: 2,
+                seller: {
+                  name: "Steve Han",
+                  uid: 69,
+                  stars: 4,
+                },
+                distance: 2,
+              }}
+              displayCost={false}
+            />
+          </Callout>
         </Marker>
       </MapView>
       <BottomSheet
