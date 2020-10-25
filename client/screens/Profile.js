@@ -18,14 +18,15 @@ import Stars from '../components/Stars';
 import { FlatList } from 'react-native-gesture-handler';
 import BackButton from '../components/BackButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AuthContext from '../App';
+import { AuthContext } from '../App';
 
 export default function Profile({ navigation, route }) {
   console.log(route);
   console.log(navigation);
   // const { uid } = route.params;
   const { users } = useContext(AuthContext);
-  const uid = '31TKgOcbR9NW5gSYZB5117s6AqA3';
+  console.log(users);
+  const uid = 'YezTNpSCKkdDpTfeNNs17sQjOEm2';
   const currUser = users[uid];
   return (
     <SafeAreaView>
@@ -38,16 +39,15 @@ export default function Profile({ navigation, route }) {
           <Image
             style={{
               ...styles.pfp,
-              resizeMode: 'contain',
+              resizeMode: 'cover',
             }}
             source={{
               uri: `data:image/png;base64,${currUser.pfp}`,
             }}
           />
-          <View style={styles.pfp} />
           <View style={styles.details}>
             <Text style={styles.name}>{currUser.name}</Text>
-            <Stars stars={4} style={{ marginBottom: 5 }} />
+            <Stars stars={currUser.stars} style={{ marginBottom: 5 }} />
             <View style={styles.tag}>
               <Text style={styles.tagText}>
                 {currUser.donor ? 'Donor' : 'Receiver'}
