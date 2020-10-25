@@ -8,16 +8,20 @@ from selenium.webdriver.common.keys import Keys
 import time
 import json
 import geocoder
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
-#db_key = "AIzaSyCq3aWcvaoq5xLwzep7-IaUDSPBDr3e_iQ"
-#cred = credentials.ApplicationDefault()
-#firebase_admin.initialize_app(cred, {'projectId':db_key,})
-#db = firestore.client()
+from azure.cosmos import CosmosClient, exceptions
+url = "a" 
+key = "test"
+client = CosmosClient(url, credential= key)
+database = "hacktx_addresses"
+try:
+    database = client.create_database(database)
+except exceptions.CosmosResourceExistError:
+    database = client.get_database_client(database)
+container_name = 'addresses'
+container = database.get_container_client(container_name)
 def get_coord(address):
     #g = geocoder.google(address, key ='AIzaSyCogh5_2lxRy8SPG8rHaXaY0-umKhl1UyA')
-    return [0,0]
+    return [30.285560,-97.752790]
     #return g.latlong
 def parse_text(text, photo_url, address):
     txt = text.split("\n")
@@ -41,7 +45,18 @@ def parse_text(text, photo_url, address):
             break
         index1+=1
     if index1 == index+1:
-        price = "N/A"
+        index = text.index("$")
+        index1 = index+1
+        comma = 3
+        while text[index1].isnumeric() or text[index1]==",":
+            if text[index1].isnumeric():
+                comma-=1
+                if comma < 0:
+                    break
+            else:
+                comma = 3
+            index1+=1
+        price = text[index:index1]
     else:
         price = text[index:index1]
     if "/mo" not in text:
@@ -63,10 +78,9 @@ def parse_text(text, photo_url, address):
             "sqfeet":sq_feet,
             "location":{"latitude":coordinates[0],"longtitude":coordinates[1]}
     }
-    with open("./file.json", "w")as outputfile:
-        json.dump(dicts, outputfile)
-    #doc_ref = db.collection('').document(address)
-    #doc_ref.set(dicts)
+    #with open("./file.json", "w")as outputfile:
+    #    json.dump(dicts, outputfile)
+    container.upsert_item(dicts)
 def main(address):
     driver = webdriver.Chrome("./chromedriver") 
     driver.get("https://www.zillow.com") 
