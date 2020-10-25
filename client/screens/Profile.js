@@ -92,7 +92,7 @@ export default function Profile({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Theme.colors.gray4,
-    padding: 35,
+    paddingHorizontal: 35,
   },
   contentContainerStyle: { paddingBottom: 60 },
   header: {
