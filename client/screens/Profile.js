@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -28,6 +28,7 @@ export default function Profile({ navigation, route }) {
   if (route.param) {
     currUser = users[route.param.uid];
   }
+  const [tokens, setTokens] = useState(currUser.tokens);
   const getListings = () => {
     const res = [];
     for (const key in listingsById) {
@@ -119,7 +120,7 @@ export default function Profile({ navigation, route }) {
           </View>
           <View style={styles.tokens}>
             <Coin />
-            <Text style={styles.tokenCount}> Tokens: {currUser.tokens}</Text>
+            <Text style={styles.tokenCount}> Tokens: {tokens}</Text>
           </View>
           {currUser.donor ? (
             <TouchableOpacity
@@ -137,6 +138,7 @@ export default function Profile({ navigation, route }) {
                     Popup.hide();
                   },
                 });
+                setTokens(0);
               }}
             >
               <Text style={styles.receiptText}>Get my tax receipt</Text>
