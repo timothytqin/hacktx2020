@@ -18,6 +18,7 @@ import Stars from '../components/Stars';
 import { FlatList } from 'react-native-gesture-handler';
 import BackButton from '../components/BackButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Root, Popup } from 'popup-ui';
 
 export default function Profile({ navigation }) {
   const dummyData = {
@@ -34,34 +35,36 @@ export default function Profile({ navigation }) {
     uid: 69,
   };
   return (
-    <SafeAreaView>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainerStyle}
-      >
-        <BackButton navigation={navigation} />
-        <View style={styles.header}>
-          <View style={styles.pfp} />
-          <View style={styles.details}>
-            <Text style={styles.name}>Steve Han</Text>
-            <Stars stars={4} style={{ marginBottom: 5 }} />
-            <View style={styles.tag}>
-              <Text style={styles.tagText}>Donor</Text>
+    <Root>
+      <SafeAreaView>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainerStyle}
+        >
+          <BackButton navigation={navigation} />
+          <View style={styles.header}>
+            <View style={styles.pfp} />
+            <View style={styles.details}>
+              <Text style={styles.name}>Steve Han</Text>
+              <Stars stars={4} style={{ marginBottom: 5 }} />
+              <View style={styles.tag}>
+                <Text style={styles.tagText}>Donor</Text>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={styles.bio}>
-          <Text style={styles.labelText}>Bio</Text>
-          <Text style={styles.bioText}>
-            I’m a current student at the University of Texas at Austin. Since
-            this semester is completely online, I’m staying at home. However, I
-            still have to pay the lease for my apartment in West Campus. Instead
-            of wasting the apartment, I choose to donate it to those in need.
-          </Text>
-        </View>
-        <View style={styles.listings}>
-          <Text style={styles.labelText}>Listings</Text>
-          {/* <FlatList
+          <View style={styles.bio}>
+            <Text style={styles.labelText}>Bio</Text>
+            <Text style={styles.bioText}>
+              I’m a current student at the University of Texas at Austin. Since
+              this semester is completely online, I’m staying at home. However,
+              I still have to pay the lease for my apartment in West Campus.
+              Instead of wasting the apartment, I choose to donate it to those
+              in need.
+            </Text>
+          </View>
+          <View style={styles.listings}>
+            <Text style={styles.labelText}>Listings</Text>
+            {/* <FlatList
             data={[dummyData, dummyData, dummyData]}
             renderItem={({ item }) => (
               <ListingItem
@@ -73,38 +76,38 @@ export default function Profile({ navigation }) {
             )}
             scrollEnabled={false}
           /> */}
+            <TouchableOpacity
+              style={{ ...styles.receiptButton, marginLeft: 20 }}
+              onPress={() => navigation.navigate('Create')}
+            >
+              <Text style={styles.receiptText}>Create Listing +</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.tokens}>
+            <Coin />
+            <Text style={styles.tokenCount}> Tokens: 20</Text>
+          </View>
           <TouchableOpacity
-            style={{ ...styles.receiptButton, marginLeft: 20 }}
-            onPress={() => navigation.navigate('Create')}
+            style={styles.receiptButton}
+            onPress={() => {
+              // TODO: firebase function to clear tokens
+              Popup.show({
+                type: 'Success',
+                title: 'Successfully claimed tokens',
+                button: true,
+                textBody: 'Your tax receipt is sent to you email',
+                buttonText: 'Ok',
+                callback: () => {
+                  Popup.hide();
+                },
+              });
+            }}
           >
-            <Text style={styles.receiptText}>Create Listing +</Text>
+            <Text style={styles.receiptText}>Get my tax receipt</Text>
           </TouchableOpacity>
-        </View>
-        <View style={styles.tokens}>
-          <Coin />
-          <Text style={styles.tokenCount}> Tokens: 20</Text>
-        </View>
-        <TouchableOpacity
-          style={styles.receiptButton}
-          onPress={() => {
-            // TODO: firebase function to clear tokens
-            const cost = listing.cost * days;
-            Popup.show({
-              type: 'Success',
-              title: 'Successfully claimed tokens',
-              button: true,
-              textBody: 'Your tax receipt is sent to you email',
-              buttonText: 'Ok',
-              callback: () => {
-                Popup.hide();
-              },
-            });
-          }}
-        >
-          <Text style={styles.receiptText}>Get my tax receipt</Text>
-        </TouchableOpacity>
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
+    </Root>
   );
 }
 
@@ -159,7 +162,7 @@ const styles = StyleSheet.create({
   tokens: {
     borderRadius: 25,
     padding: 10,
-    width: '35%',
+    maxWidth: '40%',
     flexDirection: 'row',
     justifyContent: 'center',
     marginVertical: 10,
@@ -167,7 +170,7 @@ const styles = StyleSheet.create({
   },
   tokenCount: {
     ...Theme.typography.bold,
-    fontSize: 14,
+    fontSize: 16,
     color: '#383838',
     marginTop: 4,
   },
