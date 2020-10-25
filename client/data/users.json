@@ -1,0 +1,81 @@
+{
+  "0": {
+    "name": "sam",
+    "balance": 1000,
+    "location": {
+      "latitude": 40.7115,
+      "longitude": -74.013899
+    },
+    "rating": 4.8,
+    "rating-count": 1,
+    "isDonor": false
+  },
+  "1": {
+    "name": "john",
+    "balance": 69,
+    "location": {
+      "latitude": 40.7115,
+      "longitude": -74.0139
+    },
+    "rating": 5,
+    "rating-count": 1,
+    "isDonor": false
+  },
+  "2": {
+    "name": "michelle",
+    "balance": 420,
+    "location": {
+      "latitude": 40.7115,
+      "longitude": -74.013903
+    },
+    "rating": 2.3,
+    "rating-count": 1,
+    "isDonor": false
+  },
+  "3": {
+    "name": "kyle",
+    "balance": 18,
+    "location": {
+      "latitude": 40.7115,
+      "longitude": -74.013902
+    },
+    "rating": 1.2,
+    "rating-count": 1,
+    "isDonor": false
+  },
+  "4": {
+    "name": "brianna",
+    "balance": 99,
+    "location": {
+      "latitude": 40.7115,
+      "longitude": -74.013901
+    },
+    "rating": 4.7,
+    "rating-count": 1,
+    "isDonor": false
+  },
+  "5": {
+    "name": "cameron",
+    "properties": ["0", "5", "6"],
+    "balance": 142,
+    "rating": 5,
+    "rating-count": 1,
+    "isDonor": true
+  },
+  "6": {
+    "name": "timothy",
+    "properties": ["2"],
+    "balance": 6,
+    "rating": 2.3,
+    "rating-count": 1,
+    "isDonor": true
+  },
+  "7": {
+    "name": "steve",
+    "properties": ["1", "3", "4"],
+    "balance": 190,
+    "rating": 4.6,
+    "rating-count": 1,
+    "isDonor": true
+  }
+}

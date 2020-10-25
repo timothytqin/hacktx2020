@@ -1,123 +1,134 @@
 {
-    "0": {
-        "landlord-id": "0",
-        "house-details": {
-            "total-rooms": 5,
-            "price": 7
-        },
-        "location": {
-            "latitude": 40.711501,
-            "longitutde": -74.013901
-        }
+  "0": {
+    "landlord-id": "0",
+    "house-details": {
+      "bathrooms": 3,
+      "bedrooms": 3,
+      "price": 7
     },
-    "1": {
-        "landlord-id": "1",
-        "house-details": {
-            "total-rooms": 5,
-            "price": 7
-        },
-        "location": {
-            "latitude": 40.711501,
-            "longitutde": -74.0139
-        }
-    },
-    "2": {
-        "landlord-id": "1",
-        "house-details": {
-            "total-rooms": 5,
-            "price": 7
-        },
-        "location": {
-            "latitude": 40.7115,
-            "longitutde": -74.013901
-        }
-    },
-    "3": {
-        "landlord-id": "1",
-        "house-details": {
-            "total-rooms": 5,
-            "price": 7
-        },
-        "location": {
-            "latitude": 40.7115,
-            "longitutde": -74.013899
-        }
-    },
-    "4": {
-        "landlord-id": "2",
-        "house-details": {
-            "total-rooms": 5,
-            "price": 7
-        },
-        "location": {
-            "latitude": 40.711499,
-            "longitutde": -74.0139
-        }
-    },
-    "5": {
-        "landlord-id": "1",
-        "house-details": {
-            "total-rooms": 5,
-            "price": 7
-        },
-        "location": {
-            "latitude": 40.711499,
-            "longitutde": -74.013899
-        }
-    },
-    "6": {
-        "landlord-id": "0",
-        "house-details": {
-            "total-rooms": 5,
-            "price": 7
-        },
-        "location": {
-            "latitude": 40.711502,
-            "longitutde": -74.0139
-        }
-    },
-    "7": {
-        "landlord-id": "1",
-        "house-details": {
-            "total-rooms": 5,
-            "price": 7
-        },
-        "location": {
-            "latitude": 40.7115,
-            "longitutde": -74.013902
-        }
-    },
-    "8": {
-        "landlord-id": "2",
-        "house-details": {
-            "total-rooms": 5,
-            "price": 7
-        },
-        "location": {
-            "latitude": 40.711502,
-            "longitutde": -74.013902
-        }
-    },
-    "9": {
-        "landlord-id": "2",
-        "house-details": {
-            "total-rooms": 5,
-            "price": 7
-        },
-        "location": {
-            "latitude": 40.711503,
-            "longitutde": -74.013901
-        }
-    },
-    "10": {
-        "landlord-id": "2",
-        "house-details": {
-            "total-rooms": 5,
-            "price": 7
-        },
-        "location": {
-            "latitude": 40.711502,
-            "longitutde": -74.013901
-        }
+    "location": {
+      "latitude": 40.711501,
+      "longitutde": -74.013901
     }
+  },
+  "1": {
+    "landlord-id": "1",
+    "house-details": {
+      "bathrooms": 4,
+      "bedrooms": 4,
+      "price": 7
+    },
+    "location": {
+      "latitude": 40.711501,
+      "longitutde": -74.0139
+    }
+  },
+  "2": {
+    "landlord-id": "1",
+    "house-details": {
+      "bathrooms": 3,
+      "bedrooms": 4,
+      "price": 7
+    },
+    "location": {
+      "latitude": 40.7115,
+      "longitutde": -74.013901
+    }
+  },
+  "3": {
+    "landlord-id": "1",
+    "house-details": {
+      "bathrooms": 2,
+      "bedrooms": 4,
+      "price": 7
+    },
+    "location": {
+      "latitude": 40.7115,
+      "longitutde": -74.013899
+    }
+  },
+  "4": {
+    "landlord-id": "2",
+    "house-details": {
+      "bathrooms": 3,
+      "bedrooms": 4,
+      "price": 7
+    },
+    "location": {
+      "latitude": 40.711499,
+      "longitutde": -74.0139
+    }
+  },
+  "5": {
+    "landlord-id": "1",
+    "house-details": {
+      "bathrooms": 4,
+      "bedrooms": 4,
+      "price": 7
+    },
+    "location": {
+      "latitude": 40.711499,
+      "longitutde": -74.013899
+    }
+  },
+  "6": {
+    "landlord-id": "0",
+    "house-details": {
+      "bathrooms": 3,
+      "bedrooms": 4,
+      "price": 7
+    },
+    "location": {
+      "latitude": 40.711502,
+      "longitutde": -74.0139
+    }
+  },
+  "7": {
+    "landlord-id": "1",
+    "house-details": {
+      "bathrooms": 2,
+      "bedrooms": 2,
+      "price": 7
+    },
+    "location": {
+      "latitude": 40.7115,
+      "longitutde": -74.013902
+    }
+  },
+  "8": {
+    "landlord-id": "2",
+    "house-details": {
+      "bathrooms": 3,
+      "bedrooms": 4,
+      "price": 7
+    },
+    "location": {
+      "latitude": 40.711502,
+      "longitutde": -74.013902
+    }
+  },
+  "9": {
+    "landlord-id": "2",
+    "house-details": {
+      "bathrooms": 1,
+      "bedrooms": 1,
+      "price": 7
+    },
+    "location": {
+      "latitude": 40.711503,
+      "longitutde": -74.013901
+    }
+  },
+  "10": {
+    "landlord-id": "2",
+    "house-details": {
+      "bathrooms": 1,
+      "bedrooms": 2,
+      "price": 7
+    },
+    "location": {
+      "latitude": 40.711502,
+      "longitutde": -74.013901
+    }
+  }
 }
