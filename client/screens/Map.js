@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import Animated from 'react-native-reanimated';
@@ -14,7 +15,42 @@ import { FontAwesome } from '@expo/vector-icons';
 import ListingItem from '../components/ListingItem';
 import Theme from '../Theme';
 import { BlurView } from 'expo-blur';
+import { StatusBar } from 'expo-status-bar';
+import Logo from '../assets/logo.svg';
+import ProfileIcon from '../assets/profile.svg';
+import MapStyles from '../MapStyles.json';
+import CustomMarker from '../components/MapMarker';
 
+const HomeHeader = () => {
+  return (
+    <View
+      intensity={100}
+      style={{
+        backgroundColor: Theme.colors.gray5,
+        paddingHorizontal: 20,
+        paddingVertical: 20,
+        paddingTop: 50,
+        flexDirection: 'row',
+        borderRadius: 30,
+      }}
+    >
+      <StatusBar style="dark" />
+      <Logo />
+      <Text
+        style={{
+          fontWeight: '800',
+          color: Theme.colors.gray1,
+          fontSize: 25,
+          marginLeft: 10,
+          marginTop: 5,
+        }}
+      >
+        Refuge
+      </Text>
+      <ProfileIcon style={{ marginLeft: 'auto', marginTop: 5 }} />
+    </View>
+  );
+};
 export default function Map({ navigation }) {
   const dummyData = {
     name: '26 West Apartments',
@@ -47,7 +83,7 @@ export default function Map({ navigation }) {
           width: '100%',
           backgroundColor: Theme.colors.gray5,
           paddingVertical: '2%',
-          height: 700,
+          minHeight: Dimensions.get('screen').height * 0.7,
         }}
       >
         <View
@@ -83,6 +119,7 @@ export default function Map({ navigation }) {
         </View>
         <FlatList
           data={[dummyData, dummyData, dummyData]}
+          scrollEnabled={false}
           renderItem={({ item }) => (
             <ListingItem
               listing={item}
@@ -99,6 +136,7 @@ export default function Map({ navigation }) {
   const sheetRef = React.useRef(null);
   return (
     <>
+      <HomeHeader />
       <MapView
         provider={PROVIDER_GOOGLE}
         style={{ flex: 1 }}
@@ -108,6 +146,7 @@ export default function Map({ navigation }) {
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
+        customMapStyle={MapStyles}
       >
         <Marker
           coordinate={{
@@ -115,6 +154,7 @@ export default function Map({ navigation }) {
             latitude: 30.2880541,
           }}
         >
+          <CustomMarker listing={{ cost: 3 }} />
           <Callout>
             <ListingItem
               listing={{
