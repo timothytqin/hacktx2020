@@ -50,7 +50,7 @@ const HomeHeader = ({ navigation }) => {
             marginTop: 5,
           }}
         >
-          Refuge
+          Haven
         </Text>
       </TouchableOpacity>
       <TouchableOpacity

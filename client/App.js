@@ -4,6 +4,8 @@ import Home from './screens/RootDrawerNav';
 import Auth from './screens/AuthStackNav';
 import { db } from './firebase';
 
+console.disableYellowBox = true;
+
 const AuthContext = React.createContext({
   user: null,
   setUser: null,
