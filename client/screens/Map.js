@@ -21,6 +21,7 @@ import ProfileIcon from '../assets/profile.svg';
 import MapStyles from '../MapStyles.json';
 import CustomMarker from '../components/MapMarker';
 import { AuthContext } from '../App';
+import CreateListing from './CreateListing';
 
 const HomeHeader = ({ navigation }) => {
   return (
@@ -82,7 +83,7 @@ export default function Map({ navigation }) {
         style={{
           width: '100%',
           backgroundColor: Theme.colors.gray5,
-          paddingVertical: '2%',
+          paddingTop: '2%',
           minHeight: Dimensions.get('screen').height * 0.7,
         }}
       >
@@ -119,22 +120,26 @@ export default function Map({ navigation }) {
               : 'Looking for a place to stay?'}
           </Text>
         </View>
-        <FlatList
-          data={listingIds}
-          scrollEnabled={false}
-          renderItem={({ item }) => (
-            <ListingItem
-              listing={listingsById[item]}
-              displayCost={true}
-              onPress={() =>
-                navigation.navigate('Listing', {
-                  listing: listingsById[item],
-                })
-              }
-              key={item}
-            />
-          )}
-        />
+        {!user.donor ? (
+          <FlatList
+            data={listingIds}
+            scrollEnabled={false}
+            renderItem={({ item }) => (
+              <ListingItem
+                listing={listingsById[item]}
+                displayCost={true}
+                onPress={() =>
+                  navigation.navigate('Listing', {
+                    listing: listingsById[item],
+                  })
+                }
+                key={item}
+              />
+            )}
+          />
+        ) : (
+          <CreateListing nested={true} />
+        )}
       </BlurView>
     </>
   );
