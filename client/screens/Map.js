@@ -4,7 +4,6 @@ import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { FontAwesome } from '@expo/vector-icons';
-import Coin from '../components/Coin';
 import ListingItem from '../components/ListingItem';
 import Theme from '../Theme';
 import { BlurView } from 'expo-blur';
@@ -198,7 +197,17 @@ export default function Map() {
             fontSize: 24,
             fontWeight: '700',
             color: Theme.colors.primary,
-            marginVertical: 20,
+            marginTop: 20,
+          }}
+        >
+          Welcome, user.
+        </Text>
+        <Text
+          style={{
+            fontSize: 24,
+            fontWeight: '700',
+            color: Theme.colors.gray1,
+            marginBottom: 20,
           }}
         >
           Looking for a place to stay?
@@ -246,7 +255,7 @@ export default function Map() {
       </MapView>
       <BottomSheet
         ref={sheetRef}
-        snapPoints={['70%', '10%']}
+        snapPoints={['70%', '13%']}
         initialSnap={1}
         borderRadius={30}
         renderContent={renderContent}
