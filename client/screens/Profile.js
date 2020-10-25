@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -18,21 +18,15 @@ import Stars from '../components/Stars';
 import { FlatList } from 'react-native-gesture-handler';
 import BackButton from '../components/BackButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AuthContext from '../App';
 
-export default function Profile({ navigation }) {
-  const dummyData = {
-    name: '26 West Apartments',
-    bed: 3,
-    bath: 3,
-    cost: 2,
-    seller: {
-      name: 'Steve Han',
-      uid: 69,
-      stars: 4,
-    },
-    distance: 2,
-    uid: 69,
-  };
+export default function Profile({ navigation, route }) {
+  console.log(route);
+  console.log(navigation);
+  // const { uid } = route.params;
+  const { users } = useContext(AuthContext);
+  const uid = '31TKgOcbR9NW5gSYZB5117s6AqA3';
+  const currUser = users[uid];
   return (
     <SafeAreaView>
       <ScrollView
@@ -41,23 +35,29 @@ export default function Profile({ navigation }) {
       >
         <BackButton navigation={navigation} />
         <View style={styles.header}>
+          <Image
+            style={{
+              ...styles.pfp,
+              resizeMode: 'contain',
+            }}
+            source={{
+              uri: `data:image/png;base64,${currUser.pfp}`,
+            }}
+          />
           <View style={styles.pfp} />
           <View style={styles.details}>
-            <Text style={styles.name}>Steve Han</Text>
+            <Text style={styles.name}>{currUser.name}</Text>
             <Stars stars={4} style={{ marginBottom: 5 }} />
             <View style={styles.tag}>
-              <Text style={styles.tagText}>Donor</Text>
+              <Text style={styles.tagText}>
+                {currUser.donor ? 'Donor' : 'Receiver'}
+              </Text>
             </View>
           </View>
         </View>
         <View style={styles.bio}>
           <Text style={styles.labelText}>Bio</Text>
-          <Text style={styles.bioText}>
-            I’m a current student at the University of Texas at Austin. Since
-            this semester is completely online, I’m staying at home. However, I
-            still have to pay the lease for my apartment in West Campus. Instead
-            of wasting the apartment, I choose to donate it to those in need.
-          </Text>
+          <Text style={styles.bioText}>{currUser.bio}</Text>
         </View>
         <View style={styles.listings}>
           <Text style={styles.labelText}>Listings</Text>

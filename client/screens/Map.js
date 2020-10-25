@@ -64,26 +64,19 @@ const HomeHeader = ({ navigation }) => {
 };
 
 export default function Map({ navigation }) {
-  const { listingIds, listingsById } = useContext(AuthContext);
-
-  // const dummyData = {
-  //   name: '26 West Apartments',
-  //   bed: 3,
-  //   bath: 3,
-  //   cost: 2,
-  //   seller: {
-  //     name: 'Steve Han',
-  //     uid: 69,
-  //     stars: 4,
-  //   },
-  //   distance: 2,
-  //   uid: 69,
-  // };
+  const { user, listingIds, listingsById } = useContext(AuthContext);
   navigation.setOptions({
     headerRight: () => (
       <TouchableOpacity
         style={{ margin: 10 }}
-        onPress={() => navigation.navigate('Profile')}
+        onPress={() =>
+          navigation.navigate('Home', {
+            screen: 'Profile',
+            params: {
+              uid: user.uid,
+            },
+          })
+        }
       >
         <FontAwesome name="user-circle" size={24} />
       </TouchableOpacity>
