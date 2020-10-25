@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontWeight: '800',
-    fontSize: 16,
+    fontSize: 18,
     marginVertical: 5,
     color: Theme.colors.gray1,
   },
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
   },
   bioText: {
     color: Theme.colors.gray1,
+    fontSize: 16,
   },
   tokens: {
     borderRadius: 25,

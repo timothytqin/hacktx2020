@@ -128,7 +128,7 @@ export default function Listing({ navigation, route }) {
               onChange={setDays}
               borderColor="transparent"
               textColor={Theme.colors.gray2}
-              minValue={0}
+              minValue={1}
             />
             <Text style={styles.number_text}>days</Text>
           </View>
