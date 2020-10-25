@@ -14,7 +14,7 @@ export default function Login({ navigation }) {
     login(email, password)
       .then((user) => {
         getUser(user.user.uid).then((res) => {
-          setUser(res);
+          setUser({ uid: user.user.uid, ...res });
         });
       })
       .catch((err) => {
