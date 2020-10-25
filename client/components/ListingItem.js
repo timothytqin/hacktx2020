@@ -18,10 +18,17 @@ export default function ListingItem({ listing, displayCost, onPress }) {
           <Text style={Theme.typography.bold}>{listing.donor.name}</Text>{' '}
           <Stars stars={listing.donor.stars} />
         </Text>
-        <Text style={styles.subtitle}>
-          <Text style={Theme.typography.bold}>{listing.distance}</Text> miles
-          away
-        </Text>
+        {listing.booker ? (
+          <Text style={styles.subtitle}>
+            booked by{' '}
+            <Text style={Theme.typography.bold}>{listing.booker.name}</Text>{' '}
+          </Text>
+        ) : (
+          <Text style={styles.subtitle}>
+            <Text style={Theme.typography.bold}>{listing.distance}</Text> miles
+            away
+          </Text>
+        )}
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.bedBath}>
             <FontAwesome name="bed" size={15} color={Theme.colors.gray5} />

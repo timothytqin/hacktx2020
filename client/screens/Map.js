@@ -164,22 +164,20 @@ export default function Map({ navigation }) {
         }}
         customMapStyle={MapStyles}
       >
-        <Marker
-          coordinate={{
-            longitude: -97.7452074,
-            latitude: 30.2880541,
-          }}
-        >
-          <CustomMarker listing={{ cost: 3 }} />
-          <Callout
-            style={{ borderRadius: 20, padding: 5 }}
-            onPress={() => navigation.navigate('Listing')}
-          >
-            <Text style={{ color: Theme.colors.gray1, fontWeight: '700' }}>
-              26 West Apartments
-            </Text>
-            {/* idk why adding the custom marker destroys the custom callout */}
-            {/* <ListingItem
+        {listingIds.map((id) => {
+          const listing = listingsById[id];
+          return (
+            <Marker coordinate={listing.location}>
+              <CustomMarker listing={{ cost: listing.cost }} />
+              <Callout
+                style={{ borderRadius: 20, padding: 5 }}
+                onPress={() => navigation.navigate('Listing', { listing })}
+              >
+                <Text style={{ color: Theme.colors.gray1, fontWeight: '700' }}>
+                  {listing.name}
+                </Text>
+                {/* idk why adding the custom marker destroys the custom callout */}
+                {/* <ListingItem
               listing={{
                 name: '26 West Apartments',
                 bed: 3,
@@ -195,8 +193,10 @@ export default function Map({ navigation }) {
               }}
               displayCost={false}
             /> */}
-          </Callout>
-        </Marker>
+              </Callout>
+            </Marker>
+          );
+        })}
       </MapView>
       <BottomSheet
         ref={sheetRef}

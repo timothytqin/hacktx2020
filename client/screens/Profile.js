@@ -84,7 +84,23 @@ export default function Profile({ navigation }) {
           <Coin />
           <Text style={styles.tokenCount}> Tokens: 20</Text>
         </View>
-        <TouchableOpacity style={styles.receiptButton}>
+        <TouchableOpacity
+          style={styles.receiptButton}
+          onPress={() => {
+            // TODO: firebase function to clear tokens
+            const cost = listing.cost * days;
+            Popup.show({
+              type: 'Success',
+              title: 'Successfully claimed tokens',
+              button: true,
+              textBody: 'Your tax receipt is sent to you email',
+              buttonText: 'Ok',
+              callback: () => {
+                Popup.hide();
+              },
+            });
+          }}
+        >
           <Text style={styles.receiptText}>Get my tax receipt</Text>
         </TouchableOpacity>
       </ScrollView>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -24,7 +24,7 @@ const pfpHeight = Dimensions.get('screen').width - 140;
 
 export default function Listing({ navigation, route }) {
   const { listing } = route.params;
-  console.log(listing);
+  const [days, setDays] = useState(0);
   return (
     <Root>
       <ScrollView
@@ -82,7 +82,8 @@ export default function Listing({ navigation, route }) {
         <TouchableOpacity
           style={{ ...styles.button, backgroundColor: Theme.colors.primary }}
           onPress={() => {
-            // firebase function to change tokens
+            // TODO: firebase function to change tokens
+            const cost = listing.cost * days;
             Popup.show({
               type: 'Success',
               title: 'Successfully Booked Place',
@@ -110,7 +111,7 @@ export default function Listing({ navigation, route }) {
               backgroundColor: Theme.colors.gray5,
               height: 40,
             }}
-            onChange={(value) => console.log(value)}
+            onChange={setDays}
             borderColor="transparent"
             textColor={Theme.colors.gray2}
             minValue={0}
