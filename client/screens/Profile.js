@@ -18,77 +18,133 @@ import Stars from '../components/Stars';
 import { FlatList } from 'react-native-gesture-handler';
 import BackButton from '../components/BackButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AuthContext from '../App';
+import { Root, Popup } from 'popup-ui';
+import { AuthContext } from '../App';
+import { db } from '../firebase/firebase';
 
 export default function Profile({ navigation, route }) {
-  console.log(route);
-  console.log(navigation);
-  // const { uid } = route.params;
-  const { users } = useContext(AuthContext);
-  const uid = '31TKgOcbR9NW5gSYZB5117s6AqA3';
-  const currUser = users[uid];
+  const { users, user, listingsById } = useContext(AuthContext);
+  var currUser = user;
+  if (route.param) {
+    currUser = users[route.param.uid];
+  }
+  const getListings = () => {
+    const res = [];
+    for (const key in listingsById) {
+      if (listingsById[key].donor.uid === currUser.uid)
+        res.push(listingsById[key]);
+    }
+    return res;
+  };
+  const getBookings = () => {
+    const res = [];
+    for (const key in listingsById) {
+      if (
+        listingsById[key].booker &&
+        listingsById[key].booker.uid === currUser.uid
+      )
+        res.push(listingsById[key]);
+    }
+    return res;
+  };
   return (
-    <SafeAreaView>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainerStyle}
-      >
-        <BackButton navigation={navigation} />
-        <View style={styles.header}>
-          <Image
-            style={{
-              ...styles.pfp,
-              resizeMode: 'contain',
-            }}
-            source={{
-              uri: `data:image/png;base64,${currUser.pfp}`,
-            }}
-          />
-          <View style={styles.pfp} />
-          <View style={styles.details}>
-            <Text style={styles.name}>{currUser.name}</Text>
-            <Stars stars={4} style={{ marginBottom: 5 }} />
-            <View style={styles.tag}>
-              <Text style={styles.tagText}>
-                {currUser.donor ? 'Donor' : 'Receiver'}
-              </Text>
+    <Root>
+      <SafeAreaView>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainerStyle}
+        >
+          <BackButton navigation={navigation} />
+          <View style={styles.header}>
+            <Image
+              style={{
+                ...styles.pfp,
+                resizeMode: 'cover',
+              }}
+              source={{
+                uri: `data:image/png;base64,${currUser.pfp}`,
+              }}
+            />
+            <View style={styles.details}>
+              <Text style={styles.name}>{currUser.name}</Text>
+              <Stars stars={4} style={{ marginBottom: 5 }} />
+              <View style={styles.tag}>
+                <Text style={styles.tagText}>
+                  {currUser.donor ? 'Donor' : 'Receiver'}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={styles.bio}>
-          <Text style={styles.labelText}>Bio</Text>
-          <Text style={styles.bioText}>{currUser.bio}</Text>
-        </View>
-        <View style={styles.listings}>
-          <Text style={styles.labelText}>Listings</Text>
-          {/* <FlatList
-            data={[dummyData, dummyData, dummyData]}
-            renderItem={({ item }) => (
-              <ListingItem
-                listing={item}
-                displayCost={true}
-                onPress={() => navigation.navigate('Listing')}
-                key={item.name}
-              />
+          <View style={styles.bio}>
+            <Text style={styles.labelText}>Bio</Text>
+            <Text style={styles.bioText}>{currUser.bio}</Text>
+          </View>
+          <View style={styles.listings}>
+            <Text style={styles.labelText}>
+              {currUser.donor ? 'Listings' : 'Bookings'}
+            </Text>
+            <FlatList
+              data={currUser.donor ? getListings() : getBookings()}
+              renderItem={({ item }) => {
+                console.log(item);
+                return (
+                  <ListingItem
+                    listing={item}
+                    displayCost={true}
+                    onPress={() =>
+                      navigation.navigate('Listing', { listing: item })
+                    }
+                    key={item.name}
+                  />
+                );
+              }}
+              scrollEnabled={false}
+              ListEmptyComponent={() => (
+                <View>
+                  <Text>
+                    You do not have any{' '}
+                    {currUser.donor ? 'listings' : 'bookings'}.
+                  </Text>
+                </View>
+              )}
+            />
+            {currUser.donor && (
+              <TouchableOpacity
+                style={{ ...styles.receiptButton, marginLeft: 20 }}
+                onPress={() => navigation.navigate('Create')}
+              >
+                <Text style={styles.receiptText}>Create Listing +</Text>
+              </TouchableOpacity>
             )}
-            scrollEnabled={false}
-          /> */}
-          <TouchableOpacity
-            style={{ ...styles.receiptButton, marginLeft: 20 }}
-            onPress={() => navigation.navigate('Create')}
-          >
-            <Text style={styles.receiptText}>Create Listing +</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.tokens}>
-          <Coin />
-          <Text style={styles.tokenCount}> Tokens: 20</Text>
-        </View>
-        <TouchableOpacity style={styles.receiptButton}>
-          <Text style={styles.receiptText}>Get my tax receipt</Text>
-        </TouchableOpacity>
-      </ScrollView>
-    </SafeAreaView>
+          </View>
+          <View style={styles.tokens}>
+            <Coin />
+            <Text style={styles.tokenCount}> Tokens: {currUser.tokens}</Text>
+          </View>
+          {currUser.donor && (
+            <TouchableOpacity
+              style={styles.receiptButton}
+              onPress={async () => {
+                // TODO: firebase function to clear tokens
+                await db.doc('users/' + currUser.uid).update({ tokens: 0 });
+                Popup.show({
+                  type: 'Success',
+                  title: 'Successfully claimed tokens',
+                  button: true,
+                  textBody: 'Your tax receipt is sent to you email',
+                  buttonText: 'Ok',
+                  callback: () => {
+                    Popup.hide();
+                  },
+                });
+              }}
+            >
+              <Text style={styles.receiptText}>Get my tax receipt</Text>
+            </TouchableOpacity>
+          )}
+        </ScrollView>
+      </SafeAreaView>
+    </Root>
   );
 }
 
@@ -110,6 +166,7 @@ const styles = StyleSheet.create({
   details: {
     marginLeft: 20,
     justifyContent: 'center',
+    flex: 1,
   },
   name: {
     fontSize: 30,
@@ -130,7 +187,7 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontWeight: '800',
-    fontSize: 16,
+    fontSize: 18,
     marginVertical: 5,
     color: Theme.colors.gray1,
   },
@@ -139,11 +196,12 @@ const styles = StyleSheet.create({
   },
   bioText: {
     color: Theme.colors.gray1,
+    fontSize: 16,
   },
   tokens: {
     borderRadius: 25,
     padding: 10,
-    width: '35%',
+    maxWidth: '40%',
     flexDirection: 'row',
     justifyContent: 'center',
     marginVertical: 10,
@@ -151,7 +209,7 @@ const styles = StyleSheet.create({
   },
   tokenCount: {
     ...Theme.typography.bold,
-    fontSize: 14,
+    fontSize: 16,
     color: '#383838',
     marginTop: 4,
   },

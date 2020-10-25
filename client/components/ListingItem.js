@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, Image } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Stars from './Stars';
 import Theme from '../Theme';
@@ -9,7 +9,15 @@ export default function ListingItem({ listing, displayCost, onPress }) {
   return listing ? (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.imagePanel}>
-        <View style={styles.image} />
+        <Image
+          style={{
+            ...styles.image,
+            resizeMode: 'cover',
+          }}
+          source={{
+            uri: `data:image/png;base64,${listing.pfp}`,
+          }}
+        />
       </View>
       <View style={styles.detailsPanel}>
         <Text style={styles.title}>{listing.name}</Text>
@@ -18,10 +26,17 @@ export default function ListingItem({ listing, displayCost, onPress }) {
           <Text style={Theme.typography.bold}>{listing.donor.name}</Text>{' '}
           <Stars stars={listing.donor.stars} />
         </Text>
-        <Text style={styles.subtitle}>
-          <Text style={Theme.typography.bold}>{listing.distance}</Text> miles
-          away
-        </Text>
+        {listing.booker ? (
+          <Text style={styles.subtitle}>
+            booked by{' '}
+            <Text style={Theme.typography.bold}>{listing.booker.name}</Text>{' '}
+          </Text>
+        ) : (
+          <Text style={styles.subtitle}>
+            <Text style={Theme.typography.bold}>{listing.distance}</Text> miles
+            away
+          </Text>
+        )}
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.bedBath}>
             <FontAwesome name="bed" size={15} color={Theme.colors.gray5} />

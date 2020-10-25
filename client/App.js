@@ -14,7 +14,6 @@ const AuthContext = React.createContext({
   setProperties: null,
 });
 
-const properties = require('./data/properties.json');
 export default function App() {
   const [user, setUser] = React.useState(null);
   const [listingsById, setListingsById] = React.useState([]);

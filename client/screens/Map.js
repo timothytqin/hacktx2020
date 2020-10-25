@@ -69,14 +69,7 @@ export default function Map({ navigation }) {
     headerRight: () => (
       <TouchableOpacity
         style={{ margin: 10 }}
-        onPress={() =>
-          navigation.navigate('Home', {
-            screen: 'Profile',
-            params: {
-              uid: user.uid,
-            },
-          })
-        }
+        onPress={() => navigation.navigate('Profile')}
       >
         <FontAwesome name="user-circle" size={24} />
       </TouchableOpacity>
@@ -111,7 +104,7 @@ export default function Map({ navigation }) {
               marginTop: 20,
             }}
           >
-            Welcome, user
+            Welcome, {user.name}
           </Text>
           <Text
             style={{
@@ -121,7 +114,9 @@ export default function Map({ navigation }) {
               marginBottom: 20,
             }}
           >
-            Looking for a place to stay?
+            {user.donor
+              ? 'Have an extra place?'
+              : 'Looking for a place to stay?'}
           </Text>
         </View>
         <FlatList
@@ -132,7 +127,9 @@ export default function Map({ navigation }) {
               listing={listingsById[item]}
               displayCost={true}
               onPress={() =>
-                navigation.navigate('Listing', { listing: listingsById[item] })
+                navigation.navigate('Listing', {
+                  listing: listingsById[item],
+                })
               }
               key={item}
             />
@@ -157,39 +154,22 @@ export default function Map({ navigation }) {
         }}
         customMapStyle={MapStyles}
       >
-        <Marker
-          coordinate={{
-            longitude: -97.7452074,
-            latitude: 30.2880541,
-          }}
-        >
-          <CustomMarker listing={{ cost: 3 }} />
-          <Callout
-            style={{ borderRadius: 20, padding: 5 }}
-            onPress={() => navigation.navigate('Listing')}
-          >
-            <Text style={{ color: Theme.colors.gray1, fontWeight: '700' }}>
-              26 West Apartments
-            </Text>
-            {/* idk why adding the custom marker destroys the custom callout */}
-            {/* <ListingItem
-              listing={{
-                name: '26 West Apartments',
-                bed: 3,
-                bath: 3,
-                cost: 2,
-                seller: {
-                  name: 'Steve Han',
-                  uid: 69,
-                  stars: 4,
-                },
-                distance: 2,
-                uid: 69,
-              }}
-              displayCost={false}
-            /> */}
-          </Callout>
-        </Marker>
+        {listingIds.map((id) => {
+          const listing = listingsById[id];
+          return (
+            <Marker coordinate={listing.location}>
+              <CustomMarker listing={{ cost: listing.cost }} />
+              <Callout
+                style={{ borderRadius: 20, padding: 5 }}
+                onPress={() => navigation.navigate('Listing', { listing })}
+              >
+                <Text style={{ color: Theme.colors.gray1, fontWeight: '700' }}>
+                  {listing.name}
+                </Text>
+              </Callout>
+            </Marker>
+          );
+        })}
       </MapView>
       <BottomSheet
         ref={sheetRef}
