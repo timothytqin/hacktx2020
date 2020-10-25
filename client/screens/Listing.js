@@ -26,7 +26,7 @@ import { AuthContext } from '../App';
 const pfpHeight = Dimensions.get('screen').width - 140;
 
 export default function Listing({ navigation, route }) {
-  const { listing } = route.params;
+  const { listing, listingId } = route.params;
   const [days, setDays] = useState(0);
   const { user, users } = useContext(AuthContext);
   return (
@@ -114,6 +114,11 @@ export default function Listing({ navigation, route }) {
               await db
                 .doc('users/' + listing.donor.uid)
                 .update({ tokens: users[listing.donor.uid].tokens + cost });
+              await db
+                .doc('listings/' + listingId)
+                .update({
+                  booker: { uid: user.uid, name: user.name, stars: user.stars },
+                });
               Popup.show({
                 type: 'Success',
                 title: 'Successfully Booked Place',

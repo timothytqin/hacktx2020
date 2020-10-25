@@ -131,6 +131,7 @@ export default function Map({ navigation }) {
                 onPress={() =>
                   navigation.navigate('Listing', {
                     listing: listingsById[item],
+                    listingId: item,
                   })
                 }
                 key={item}

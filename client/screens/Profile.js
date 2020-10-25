@@ -121,7 +121,7 @@ export default function Profile({ navigation, route }) {
             <Coin />
             <Text style={styles.tokenCount}> Tokens: {currUser.tokens}</Text>
           </View>
-          {currUser.donor && (
+          {currUser.donor ? (
             <TouchableOpacity
               style={styles.receiptButton}
               onPress={async () => {
@@ -140,6 +140,28 @@ export default function Profile({ navigation, route }) {
               }}
             >
               <Text style={styles.receiptText}>Get my tax receipt</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.receiptButton}
+              onPress={async () => {
+                // TODO: firebase function to clear tokens
+                await db
+                  .doc('users/' + currUser.uid)
+                  .update({ tokens: currUser.tokens + 10 });
+                Popup.show({
+                  type: 'Success',
+                  title: 'Successfully applied for tokens',
+                  button: true,
+                  textBody: 'You token count has been incremented',
+                  buttonText: 'Ok',
+                  callback: () => {
+                    Popup.hide();
+                  },
+                });
+              }}
+            >
+              <Text style={styles.receiptText}>Apply for tokens</Text>
             </TouchableOpacity>
           )}
         </ScrollView>
