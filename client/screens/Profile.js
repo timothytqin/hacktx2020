@@ -22,9 +22,10 @@ import { Root, Popup } from 'popup-ui';
 import { AuthContext } from '../App';
 
 export default function Profile({ navigation, route }) {
-  console.log(route.params.user);
+  // console.log(route.params.user);
   const { users, user } = useContext(AuthContext);
   // if (route.param)
+  const uid = 'YezTNpSCKkdDpTfeNNs17sQjOEm2';
   const currUser = users[uid];
   return (
     <Root>
@@ -38,13 +39,12 @@ export default function Profile({ navigation, route }) {
             <Image
               style={{
                 ...styles.pfp,
-                resizeMode: 'contain',
+                resizeMode: 'cover',
               }}
               source={{
                 uri: `data:image/png;base64,${currUser.pfp}`,
               }}
             />
-            <View style={styles.pfp} />
             <View style={styles.details}>
               <Text style={styles.name}>{currUser.name}</Text>
               <Stars stars={4} style={{ marginBottom: 5 }} />
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
   details: {
     marginLeft: 20,
     justifyContent: 'center',
+    flex: 1,
   },
   name: {
     fontSize: 30,
