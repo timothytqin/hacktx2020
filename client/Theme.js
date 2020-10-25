@@ -13,4 +13,15 @@ export default {
       fontWeight: '700',
     },
   },
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+
+    elevation: 2,
+  },
 };

@@ -31,7 +31,10 @@ export default function ListingItem({ listing }) {
             <FontAwesome name="bath" size={15} color={Theme.colors.gray5} />
             <Text style={styles.bedBathQuantity}> {listing.bath}</Text>
           </View>
-          <Coin width={'100%'} height={'100%'} />
+          <View style={styles.coinPanel}>
+            <Text style={styles.coinQuantity}>{listing.cost}</Text>
+            <Coin />
+          </View>
         </View>
       </View>
     </View>
@@ -44,6 +47,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     flexDirection: 'row',
     padding: 10,
+    ...Theme.shadow,
   },
   imagePanel: {
     alignItems: 'center',
@@ -77,13 +81,15 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   coinPanel: {
-    flex: 1,
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    alignSelf: 'flex-end',
+    marginLeft: 'auto',
   },
   coinQuantity: {
-    color: '#e3e3e3',
+    color: Theme.colors.gray2,
     fontSize: 24,
     fontWeight: '700',
+    marginRight: 5,
   },
 });

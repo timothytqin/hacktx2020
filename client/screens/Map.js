@@ -187,8 +187,8 @@ export default function Map() {
         <View
           style={{
             width: '10%',
-            height: 3,
-            backgroundColor: Theme.colors.gray2,
+            height: 5,
+            backgroundColor: Theme.colors.gray3,
             borderRadius: 5,
             alignSelf: 'center',
           }}
@@ -248,7 +248,7 @@ export default function Map() {
         ref={sheetRef}
         snapPoints={['70%', '10%']}
         initialSnap={1}
-        borderRadius={25}
+        borderRadius={30}
         renderContent={renderContent}
       />
     </>
