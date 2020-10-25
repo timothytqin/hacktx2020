@@ -17,6 +17,7 @@ import Theme from '../Theme';
 import Stars from '../components/Stars';
 import { FlatList } from 'react-native-gesture-handler';
 import BackButton from '../components/BackButton';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Profile({ navigation }) {
   const dummyData = {
@@ -33,53 +34,58 @@ export default function Profile({ navigation }) {
     uid: 69,
   };
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.contentContainerStyle}
-    >
-      <BackButton navigation={navigation} />
-      <View style={styles.header}>
-        <View style={styles.pfp} />
-        <View style={styles.details}>
-          <Text style={styles.name}>Steve Han</Text>
-          <Stars stars={4} style={{ marginBottom: 5 }} />
-          <View style={styles.tag}>
-            <Text style={styles.tagText}>Donor</Text>
+    <SafeAreaView>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainerStyle}
+      >
+        <BackButton navigation={navigation} />
+        <View style={styles.header}>
+          <View style={styles.pfp} />
+          <View style={styles.details}>
+            <Text style={styles.name}>Steve Han</Text>
+            <Stars stars={4} style={{ marginBottom: 5 }} />
+            <View style={styles.tag}>
+              <Text style={styles.tagText}>Donor</Text>
+            </View>
           </View>
         </View>
-      </View>
-      <View style={styles.bio}>
-        <Text style={styles.labelText}>Bio</Text>
-        <Text style={styles.bioText}>
-          I’m a current student at the University of Texas at Austin. Since this
-          semester is completely online, I’m staying at home. However, I still
-          have to pay the lease for my apartment in West Campus. Instead of
-          wasting the apartment, I choose to donate it to those in need.
-        </Text>
-      </View>
-      <View style={styles.listings}>
-        <Text style={styles.labelText}>Listings</Text>
-        <FlatList
-          data={[dummyData, dummyData, dummyData]}
-          renderItem={({ item }) => (
-            <ListingItem
-              listing={item}
-              displayCost={true}
-              onPress={() => navigation.navigate('Listing')}
-              key={item.name}
-            />
-          )}
-          scrollEnabled={false}
-        />
-      </View>
-      <View style={styles.tokens}>
-        <Coin />
-        <Text style={styles.tokenCount}> Tokens: 20</Text>
-      </View>
-      <TouchableOpacity style={styles.receiptButton}>
-        <Text style={styles.receiptText}>Get my tax receipt</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        <View style={styles.bio}>
+          <Text style={styles.labelText}>Bio</Text>
+          <Text style={styles.bioText}>
+            I’m a current student at the University of Texas at Austin. Since
+            this semester is completely online, I’m staying at home. However, I
+            still have to pay the lease for my apartment in West Campus. Instead
+            of wasting the apartment, I choose to donate it to those in need.
+          </Text>
+        </View>
+        <View style={styles.listings}>
+          <Text style={styles.labelText}>Listings</Text>
+          <FlatList
+            data={[dummyData, dummyData, dummyData]}
+            renderItem={({ item }) => (
+              <ListingItem
+                listing={item}
+                displayCost={true}
+                onPress={() => navigation.navigate('Listing')}
+                key={item.name}
+              />
+            )}
+            scrollEnabled={false}
+          />
+          <TouchableOpacity style={{ ...styles.receiptButton, marginLeft: 20 }}>
+            <Text style={styles.receiptText}>Create Listing +</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.tokens}>
+          <Coin />
+          <Text style={styles.tokenCount}> Tokens: 20</Text>
+        </View>
+        <TouchableOpacity style={styles.receiptButton}>
+          <Text style={styles.receiptText}>Get my tax receipt</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

@@ -1,0 +1,44 @@
+{
+    "0": {
+        "property-id": "0",
+        "renter-id": "5",
+        "date-from": 1603587407,
+        "date-to": 1603746605,
+        "total-tokens": 14
+    },
+    "1": {
+        "property-id": "2",
+        "renter-id": "3",
+        "date-from": 1603587407,
+        "date-to": 1603846605,
+        "total-tokens": 14
+    },
+    "2": {
+        "property-id": "1",
+        "renter-id": "1",
+        "date-from": 1603587407,
+        "date-to": 1603646605,
+        "total-tokens": 14
+    },
+    "3": {
+        "property-id": "0",
+        "renter-id": "0",
+        "date-from": 1603587407,
+        "date-to": 1603946605,
+        "total-tokens": 14
+    },
+    "4": {
+        "property-id": "8",
+        "renter-id": "2",
+        "date-from": 1603587407,
+        "date-to": 1603956605,
+        "total-tokens": 14
+    },
+    "5": {
+        "property-id": "7",
+        "renter-id": "4",
+        "date-from": 1603587407,
+        "date-to": 1603996605,
+        "total-tokens": 14
+    }
+}
