@@ -61,7 +61,7 @@ export default function Profile({ navigation }) {
         </View>
         <View style={styles.listings}>
           <Text style={styles.labelText}>Listings</Text>
-          <FlatList
+          {/* <FlatList
             data={[dummyData, dummyData, dummyData]}
             renderItem={({ item }) => (
               <ListingItem
@@ -72,7 +72,7 @@ export default function Profile({ navigation }) {
               />
             )}
             scrollEnabled={false}
-          />
+          /> */}
           <TouchableOpacity
             style={{ ...styles.receiptButton, marginLeft: 20 }}
             onPress={() => navigation.navigate('Create')}

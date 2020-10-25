@@ -3,12 +3,25 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { AuthContext } from '../App';
 import Theme from '../Theme';
+import { login, getUser } from '../firebase/firebaseAuth';
 
 export default function Login({ navigation }) {
   navigation.setOptions({ header: () => null });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { setUser } = useContext(AuthContext);
+
+  const loginHandler = () => {
+    login(email, password)
+      .then((user) => {
+        getUser(user.user.uid).then((res) => {
+          setUser(res);
+        });
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.loginText}>Login</Text>
@@ -32,7 +45,7 @@ export default function Login({ navigation }) {
         autoCapitalize="none"
       />
       <View style={{ alignItems: 'flex-end' }}>
-        <TouchableOpacity style={styles.submit} onPress={() => setUser(email)}>
+        <TouchableOpacity style={styles.submit} onPress={loginHandler}>
           <Text style={{ color: Theme.colors.gray5, ...Theme.typography.bold }}>
             Submit
           </Text>
