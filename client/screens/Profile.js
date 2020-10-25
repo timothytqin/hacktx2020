@@ -82,7 +82,7 @@ export default function Profile({ navigation, route }) {
           </View>
           <View style={styles.tokens}>
             <Coin />
-            <Text style={styles.tokenCount}> Tokens: 20</Text>
+            <Text style={styles.tokenCount}> Tokens: {currUser.tokens}</Text>
           </View>
           <TouchableOpacity
             style={styles.receiptButton}
