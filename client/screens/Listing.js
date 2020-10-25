@@ -20,7 +20,8 @@ import BackButton from '../components/BackButton';
 
 const pfpHeight = Dimensions.get('screen').width - 140;
 
-export default function Listing({ navigation }) {
+export default function Listing({ navigation, route }) {
+  const listing = route.params;
   return (
     <ScrollView
       style={styles.container}

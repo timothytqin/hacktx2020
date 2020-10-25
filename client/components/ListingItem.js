@@ -6,7 +6,7 @@ import Theme from '../Theme';
 import Coin from '../assets/token.svg';
 
 export default function ListingItem({ listing, displayCost, onPress }) {
-  return (
+  return listing ? (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.imagePanel}>
         <View style={styles.image} />
@@ -15,8 +15,8 @@ export default function ListingItem({ listing, displayCost, onPress }) {
         <Text style={styles.title}>{listing.name}</Text>
         <Text style={styles.subtitle}>
           sold by{' '}
-          <Text style={Theme.typography.bold}>{listing.seller.name}</Text>{' '}
-          <Stars stars={listing.seller.stars} />
+          <Text style={Theme.typography.bold}>{listing.donor.name}</Text>{' '}
+          <Stars stars={listing.donor.stars} />
         </Text>
         <Text style={styles.subtitle}>
           <Text style={Theme.typography.bold}>{listing.distance}</Text> miles
@@ -40,7 +40,7 @@ export default function ListingItem({ listing, displayCost, onPress }) {
         </View>
       </View>
     </TouchableOpacity>
-  );
+  ) : null;
 }
 const styles = StyleSheet.create({
   container: {

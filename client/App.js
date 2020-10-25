@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import Home from './screens/RootDrawerNav';
 import Auth from './screens/AuthStackNav';
+import { db } from './firebase';
 
 const AuthContext = React.createContext({
   user: null,
@@ -13,15 +14,23 @@ const AuthContext = React.createContext({
 const properties = require('./data/properties.json');
 export default function App() {
   const [user, setUser] = React.useState(null);
-  const [properties, setProperties] = React.useState([]);
+  const [listingsById, setListingsById] = React.useState([]);
+  const [listingIds, setListingIds] = React.useState([]);
   useEffect(() => {
-    setProperties(properties);
+    db.collection('listings').onSnapshot((listings) => {
+      const listingsById = {};
+      const listingIds = [];
+      listings.forEach((listing) => {
+        listingsById[listing.id] = listing.data();
+        listingIds.push(listing.id);
+      });
+      setListingIds(listingIds);
+      setListingsById(listingsById);
+    });
   }, []);
   return (
-    <AuthContext.Provider
-      value={{ user: user, setUser: setUser, properties, setProperties }}
-    >
-      <NavigationContainer>{!user ? <Auth /> : <Home />}</NavigationContainer>
+    <AuthContext.Provider value={{ user, setUser, listingsById, listingIds }}>
+      <NavigationContainer>{user ? <Auth /> : <Home />}</NavigationContainer>
     </AuthContext.Provider>
   );
 }

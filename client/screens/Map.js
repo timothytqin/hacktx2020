@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   ScrollView,
   Text,
@@ -20,6 +20,7 @@ import Logo from '../assets/logo.svg';
 import ProfileIcon from '../assets/profile.svg';
 import MapStyles from '../MapStyles.json';
 import CustomMarker from '../components/MapMarker';
+import { AuthContext } from '../App';
 
 const HomeHeader = ({ navigation }) => {
   return (
@@ -61,20 +62,23 @@ const HomeHeader = ({ navigation }) => {
     </View>
   );
 };
+
 export default function Map({ navigation }) {
-  const dummyData = {
-    name: '26 West Apartments',
-    bed: 3,
-    bath: 3,
-    cost: 2,
-    seller: {
-      name: 'Steve Han',
-      uid: 69,
-      stars: 4,
-    },
-    distance: 2,
-    uid: 69,
-  };
+  const { listingIds, listingsById } = useContext(AuthContext);
+
+  // const dummyData = {
+  //   name: '26 West Apartments',
+  //   bed: 3,
+  //   bath: 3,
+  //   cost: 2,
+  //   seller: {
+  //     name: 'Steve Han',
+  //     uid: 69,
+  //     stars: 4,
+  //   },
+  //   distance: 2,
+  //   uid: 69,
+  // };
   navigation.setOptions({
     headerRight: () => (
       <TouchableOpacity
@@ -128,14 +132,16 @@ export default function Map({ navigation }) {
           </Text>
         </View>
         <FlatList
-          data={[dummyData, dummyData, dummyData]}
+          data={listingIds}
           scrollEnabled={false}
           renderItem={({ item }) => (
             <ListingItem
-              listing={item}
+              listing={listingsById[item]}
               displayCost={true}
-              onPress={() => navigation.navigate('Listing')}
-              key={item.name}
+              onPress={() =>
+                navigation.navigate('Listing', { listing: listingsById[item] })
+              }
+              key={item}
             />
           )}
         />
