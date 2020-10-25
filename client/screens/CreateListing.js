@@ -16,12 +16,30 @@ import Stars from '../components/Stars';
 import BackButton from '../components/BackButton';
 import { TextInput } from 'react-native-gesture-handler';
 
-const pfpHeight = Dimensions.get('screen').width - 140;
+const pfpHeight = Dimensions.get('screen').width - 80;
 
 export default function CreateListing({ navigation }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [cost, setCost] = useState();
+  const [bed, setBed] = useState();
+  const [bath, setBath] = useState();
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
   return (
     <ScrollView
       style={styles.container}
@@ -41,7 +59,7 @@ export default function CreateListing({ navigation }) {
             <Coin />
             <TextInput
               style={{
-                ...styles.buttonText,
+                ...styles.pinInput,
                 fontSize: 20,
               }}
               placeholder="Cost"
@@ -51,11 +69,27 @@ export default function CreateListing({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity style={{ ...styles.button, ...styles.pin }}>
             <FontAwesome name="bed" size={20} color={Theme.colors.gray1} />
-            <Text style={{ ...styles.buttonText, fontSize: 20 }}> 3</Text>
+            <TextInput
+              style={{
+                ...styles.pinInput,
+                fontSize: 20,
+              }}
+              placeholder="Bed"
+              value={bed}
+              onChangeText={setBed}
+            />
           </TouchableOpacity>
           <TouchableOpacity style={{ ...styles.button, ...styles.pin }}>
             <FontAwesome name="bath" size={20} color={Theme.colors.gray1} />
-            <Text style={{ ...styles.buttonText, fontSize: 20 }}> 3</Text>
+            <TextInput
+              style={{
+                ...styles.pinInput,
+                fontSize: 20,
+              }}
+              placeholder="Bath"
+              value={bath}
+              onChangeText={setBath}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -69,7 +103,7 @@ export default function CreateListing({ navigation }) {
       <TouchableOpacity
         style={{ ...styles.button, backgroundColor: Theme.colors.primary }}
       >
-        <Text style={{ ...styles.buttonText, color: Theme.colors.gray5 }}>
+        <Text style={{ ...styles.pinInput, color: Theme.colors.gray5 }}>
           Save
         </Text>
       </TouchableOpacity>
@@ -135,9 +169,11 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     ...Theme.shadow,
   },
-  buttonText: {
+  pinInput: {
     ...Theme.typography.bold,
     color: Theme.colors.gray1,
     fontSize: 14,
+    marginLeft: 5,
+    width: '60%',
   },
 });
