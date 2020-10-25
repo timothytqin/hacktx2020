@@ -49,7 +49,7 @@ export default function Listing({ navigation, route }) {
           <View style={styles.details}>
             <Text style={styles.name}>{listing.name}</Text>
             <View style={styles.soldBy}>
-              <Text style={styles.subtitle}>sold by </Text>
+              <Text style={styles.subtitle}>listed by </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate('Profile', { uid: 69 })}
               >

@@ -22,7 +22,7 @@ export default function ListingItem({ listing, displayCost, onPress }) {
       <View style={styles.detailsPanel}>
         <Text style={styles.title}>{listing.name}</Text>
         <Text style={styles.subtitle}>
-          sold by{' '}
+          listed by{' '}
           <Text style={Theme.typography.bold}>{listing.donor.name}</Text>{' '}
           <Stars stars={listing.donor.stars} />
         </Text>
