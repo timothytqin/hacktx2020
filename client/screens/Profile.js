@@ -64,6 +64,7 @@ export default function Profile({ navigation }) {
               listing={item}
               displayCost={true}
               onPress={() => navigation.navigate('Listing')}
+              key={item.name}
             />
           )}
         />
