@@ -22,7 +22,7 @@ import { AuthContext } from '../App';
 
 const pfpHeight = Dimensions.get('screen').width - 80;
 
-export default function CreateListing({ navigation, route }) {
+export default function Setup({ navigation, route }) {
   const { user, setUser } = useContext(AuthContext);
   const [name, setName] = useState('');
   const [bio, setBio] = useState('');

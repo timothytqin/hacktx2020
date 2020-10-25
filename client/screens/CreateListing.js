@@ -24,21 +24,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import MapStyles from '../MapStyles.json';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Root, Popup } from 'popup-ui';
-import { add_listing} from '../firebase/firebaseListing';
-import {AuthContext} from "../App"
+import { add_listing } from '../firebase/firebaseListing';
+import { AuthContext } from '../App';
 const pfpHeight = Dimensions.get('screen').width - 80;
 
-export default function CreateListing({ navigation }) {
-  // navigation.setOptions({
-  //   drawerIcon: () => (
-  //     <FontAwesome
-  //       name="plus-circle"
-  //       size={38}
-  //       style={{ marginLeft: 2 }}
-  //       color={Theme.colors.primary}
-  //     />
-  //   ),
-  // });
+export default function CreateListing({ navigation, nested = false }) {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [region, setRegion] = useState({
@@ -50,10 +40,9 @@ export default function CreateListing({ navigation }) {
   const [bed, setBed] = useState();
   const [bath, setBath] = useState();
   const [image, setImage] = useState(null);
-  const [base64, setBase64] = useState("");
+  const [base64, setBase64] = useState('');
 
-  const {user} = useContext(AuthContext);
-
+  const { user } = useContext(AuthContext);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -71,7 +60,7 @@ export default function CreateListing({ navigation }) {
       setBase64(result.base64);
     }
   };
-    useEffect(() => {
+  useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
         const {
@@ -96,8 +85,8 @@ export default function CreateListing({ navigation }) {
       donor: {
         name: user.name,
         stars: 4,
-        uid: user.uid
-      }
+        uid: user.uid,
+      },
     };
     add_listing(data);
   };
@@ -106,10 +95,15 @@ export default function CreateListing({ navigation }) {
     <Root>
       <SafeAreaView>
         <ScrollView
-          style={styles.container}
+          style={{
+            ...styles.container,
+            backgroundColor: nested
+              ? 'rgba(255, 255, 255, 0)'
+              : styles.container.backgroundColor,
+          }}
           contentContainerStyle={styles.contentContainerStyle}
         >
-          <BackButton navigation={navigation} />
+          {!nested && <BackButton navigation={navigation} />}
 
           <TouchableOpacity onPress={pickImage}>
             {image ? (

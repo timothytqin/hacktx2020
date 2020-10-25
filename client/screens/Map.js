@@ -83,7 +83,7 @@ export default function Map({ navigation }) {
         style={{
           width: '100%',
           backgroundColor: Theme.colors.gray5,
-          paddingVertical: '2%',
+          paddingTop: '2%',
           minHeight: Dimensions.get('screen').height * 0.7,
         }}
       >
@@ -138,7 +138,7 @@ export default function Map({ navigation }) {
             )}
           />
         ) : (
-          <CreateListing />
+          <CreateListing nested={true} />
         )}
       </BlurView>
     </>
