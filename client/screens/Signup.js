@@ -7,7 +7,12 @@ export default function Login({ navigation }) {
   navigation.setOptions({ header: () => null });
   return (
     <View style={styles.container}>
-      <Text style={styles.loginText}>Login</Text>
+      <Text style={styles.loginText}>Sign Up</Text>
+      <TextInput
+        placeholder="name"
+        style={styles.input}
+        placeholderTextColor={Theme.colors.gray1}
+      />
       <TextInput
         placeholder="email"
         style={styles.input}
@@ -18,6 +23,11 @@ export default function Login({ navigation }) {
         style={styles.input}
         placeholderTextColor={Theme.colors.gray1}
       />
+      <TextInput
+        placeholder="confirm password"
+        style={styles.input}
+        placeholderTextColor={Theme.colors.gray1}
+      />
       <View style={{ alignItems: 'flex-end' }}>
         <TouchableOpacity style={styles.submit}>
           <Text style={{ color: Theme.colors.gray5, ...Theme.typography.bold }}>
@@ -25,13 +35,13 @@ export default function Login({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.signupText}>Don't have an account?</Text>
+      <Text style={styles.signupText}>Already have an account?</Text>
       <TouchableOpacity
         style={styles.signupButton}
-        onPress={() => navigation.navigate('Signup')}
+        onPress={() => navigation.navigate('Login')}
       >
         <Text style={{ color: Theme.colors.gray1, ...Theme.typography.bold }}>
-          Sign Up
+          Login
         </Text>
       </TouchableOpacity>
     </View>
