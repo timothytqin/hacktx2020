@@ -7,6 +7,7 @@ import Theme from '../Theme';
 export default function Login({ navigation }) {
   navigation.setOptions({ header: () => null });
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const { setUser } = useContext(AuthContext);
   return (
     <View style={styles.container}>
