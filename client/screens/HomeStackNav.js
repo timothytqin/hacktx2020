@@ -5,7 +5,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text } from 'react-native';
 import Theme from '../Theme';
 import Logo from '../assets/logo.svg';
-import Profile from '../assets/profile.svg';
+import ProfileIcon from '../assets/profile.svg';
+import Listing from '../screens/Listing';
+import Profile from '../screens/Profile';
 import { StatusBar } from 'expo-status-bar';
 
 const Stack = createStackNavigator();
@@ -34,7 +36,7 @@ const HomeHeader = () => {
       >
         Refuge
       </Text>
-      <Profile style={{ marginLeft: 'auto', marginTop: 5 }} />
+      <ProfileIcon style={{ marginLeft: 'auto', marginTop: 5 }} />
     </View>
   );
 };
@@ -47,6 +49,8 @@ export default function BottomTabNav() {
         component={Map}
         options={{ header: () => <HomeHeader /> }}
       />
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Listing" component={Listing} />
     </Stack.Navigator>
   );
 }

@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Stars from './Stars';
 import Theme from '../Theme';
 import Coin from '../assets/token.svg';
 
-export default function ListingItem({ listing }) {
+export default function ListingItem({ listing, displayCost, onPress }) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.imagePanel}>
         <View style={styles.image} />
       </View>
@@ -31,23 +31,26 @@ export default function ListingItem({ listing }) {
             <FontAwesome name="bath" size={15} color={Theme.colors.gray5} />
             <Text style={styles.bedBathQuantity}> {listing.bath}</Text>
           </View>
-          <View style={styles.coinPanel}>
-            <Text style={styles.coinQuantity}>{listing.cost}</Text>
-            <Coin />
-          </View>
+          {displayCost && (
+            <View style={styles.coinPanel}>
+              <Text style={styles.coinQuantity}>{listing.cost}</Text>
+              <Coin />
+            </View>
+          )}
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
     backgroundColor: Theme.colors.gray5,
     borderRadius: 20,
     flexDirection: 'row',
     padding: 10,
     ...Theme.shadow,
+    marginVertical: 10,
+    marginHorizontal: 20,
   },
   imagePanel: {
     alignItems: 'center',
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
   },
   detailsPanel: {
     flex: 5,
-    marginHorizontal: 5,
+    marginLeft: 10,
   },
   title: { fontWeight: '700', fontSize: 20, color: Theme.colors.gray1 },
   subtitle: { color: Theme.colors.gray2, fontSize: 14, marginVertical: 1 },
