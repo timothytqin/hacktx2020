@@ -1,5 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import Login from "./Login";
 import Map from "./Map";
 import Profile from "./Profile";
 import Listing from "./Listing";
@@ -10,6 +11,7 @@ const Stack = createStackNavigator();
 export default function BottomTabNav() {
   return (
     <Stack.Navigator>
+      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Map" component={Map} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Listing" component={Listing} />
