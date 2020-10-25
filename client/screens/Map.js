@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   ScrollView,
   Text,
@@ -6,24 +6,23 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-} from "react-native";
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
-import Animated from "react-native-reanimated";
-import BottomSheet from "reanimated-bottom-sheet";
-import { FontAwesome } from "@expo/vector-icons";
-import Coin from "../components/Coin";
-import ListingItem from "../components/ListingItem";
-import Theme from "../Theme";
-import { BlurView } from "expo-blur";
+} from 'react-native';
+import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
+import Animated from 'react-native-reanimated';
+import BottomSheet from 'reanimated-bottom-sheet';
+import { FontAwesome } from '@expo/vector-icons';
+import ListingItem from '../components/ListingItem';
+import Theme from '../Theme';
+import { BlurView } from 'expo-blur';
 
 export default function Map({ navigation }) {
   const dummyData = {
-    name: "26 West Apartments",
+    name: '26 West Apartments',
     bed: 3,
     bath: 3,
     cost: 2,
     seller: {
-      name: "Steve Han",
+      name: 'Steve Han',
       uid: 69,
       stars: 4,
     },
@@ -34,7 +33,7 @@ export default function Map({ navigation }) {
     headerRight: () => (
       <TouchableOpacity
         style={{ margin: 10 }}
-        onPress={() => navigation.navigate("Profile")}
+        onPress={() => navigation.navigate('Profile')}
       >
         <FontAwesome name="user-circle" size={24} />
       </TouchableOpacity>
@@ -45,39 +44,51 @@ export default function Map({ navigation }) {
       <BlurView
         intensity={100}
         style={{
-          width: "100%",
+          width: '100%',
           backgroundColor: Theme.colors.gray5,
-          paddingHorizontal: "5%",
-          paddingVertical: "2%",
+          paddingVertical: '2%',
           height: 700,
         }}
       >
         <View
           style={{
-            width: "10%",
-            height: 3,
-            backgroundColor: Theme.colors.gray2,
+            width: '10%',
+            height: 5,
+            backgroundColor: Theme.colors.gray3,
             borderRadius: 5,
-            alignSelf: "center",
+            alignSelf: 'center',
           }}
         />
-        <Text
-          style={{
-            fontSize: 24,
-            fontWeight: "700",
-            color: Theme.colors.primary,
-            marginVertical: 20,
-          }}
-        >
-          Looking for a place to stay?
-        </Text>
+        <View style={{ paddingLeft: 20 }}>
+          <Text
+            style={{
+              fontSize: 28,
+              fontWeight: '800',
+              color: Theme.colors.primary,
+              marginTop: 20,
+            }}
+          >
+            Welcome, user
+          </Text>
+          <Text
+            style={{
+              fontSize: 24,
+              fontWeight: '700',
+              color: Theme.colors.gray1,
+              marginBottom: 20,
+            }}
+          >
+            Looking for a place to stay?
+          </Text>
+        </View>
         <FlatList
           data={[dummyData, dummyData, dummyData]}
           renderItem={({ item }) => (
             <ListingItem
               listing={item}
               displayCost={true}
-              onPress={() => navigation.navigate("Listing")}
+              onPress={() => navigation.navigate('Listing')}
+              key={item.name}
             />
           )}
         />
@@ -107,12 +118,12 @@ export default function Map({ navigation }) {
           <Callout>
             <ListingItem
               listing={{
-                name: "26 West Apartments",
+                name: '26 West Apartments',
                 bed: 3,
                 bath: 3,
                 cost: 2,
                 seller: {
-                  name: "Steve Han",
+                  name: 'Steve Han',
                   uid: 69,
                   stars: 4,
                 },
@@ -126,9 +137,9 @@ export default function Map({ navigation }) {
       </MapView>
       <BottomSheet
         ref={sheetRef}
-        snapPoints={["70%", "10%"]}
+        snapPoints={['70%', '15%']}
         initialSnap={1}
-        borderRadius={25}
+        borderRadius={30}
         renderContent={renderContent}
       />
     </>

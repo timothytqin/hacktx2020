@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -7,18 +7,17 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-} from "react-native";
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
-import Animated from "react-native-reanimated";
-import BottomSheet from "reanimated-bottom-sheet";
-import { FontAwesome } from "@expo/vector-icons";
-import Coin from "../components/Coin";
-import ListingItem from "../components/ListingItem";
-import Theme from "../Theme";
-import Stars from "../components/Stars";
-import { FlatList } from "react-native-gesture-handler";
+} from 'react-native';
+import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
+import Animated from 'react-native-reanimated';
+import BottomSheet from 'reanimated-bottom-sheet';
+import { FontAwesome } from '@expo/vector-icons';
+import Coin from '../assets/token.svg';
+import ListingItem from '../components/ListingItem';
+import Theme from '../Theme';
+import Stars from '../components/Stars';
 
-const pfpHeight = Dimensions.get("screen").width - 140;
+const pfpHeight = Dimensions.get('screen').width - 140;
 
 export default function Listing({ navigation }) {
   return (
@@ -32,7 +31,7 @@ export default function Listing({ navigation }) {
         <View style={styles.soldBy}>
           <Text style={styles.subtitle}>sold by </Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate("Profile", { uid: 69 })}
+            onPress={() => navigation.navigate('Profile', { uid: 69 })}
           >
             <Text style={{ ...styles.subtitle, ...styles.seller }}>
               Steve Han
@@ -50,7 +49,7 @@ export default function Listing({ navigation }) {
                 fontSize: 20,
               }}
             >
-              {" "}
+              {' '}
               2
             </Text>
           </TouchableOpacity>
@@ -91,20 +90,20 @@ const styles = StyleSheet.create({
     padding: 70,
   },
   pfp: {
-    width: "100%",
+    width: '100%',
     height: pfpHeight,
-    backgroundColor: "#696969",
+    backgroundColor: '#696969',
     borderRadius: 50,
   },
   name: {
     fontSize: 30,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: Theme.colors.primary,
     marginVertical: 10,
   },
   soldBy: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   subtitle: {
     color: Theme.colors.gray2,
@@ -112,18 +111,18 @@ const styles = StyleSheet.create({
     marginVertical: 1,
   },
   seller: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   pinPanel: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginVertical: 10,
   },
   pin: {
     backgroundColor: Theme.colors.gray5,
     marginRight: 5,
-    width: "20%",
-    justifyContent: "center",
-    alignItems: "center",
+    width: '20%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   description: {
     marginVertical: 5,
@@ -131,9 +130,9 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 25,
     padding: 10,
-    width: "55%",
-    flexDirection: "row",
-    justifyContent: "center",
+    width: '55%',
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginVertical: 10,
   },
   buttonText: {

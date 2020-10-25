@@ -1,7 +1,7 @@
-import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import Theme from "../Theme";
+import React from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import Theme from '../Theme';
 
 export default function Login({ navigation }) {
   navigation.setOptions({ header: () => null });
@@ -18,8 +18,16 @@ export default function Login({ navigation }) {
         style={styles.input}
         placeholderTextColor={Theme.colors.gray1}
       />
-      <TouchableOpacity style={styles.submit}>
-        <Text style={{ color: Theme.colors.gray5, ...Theme.typography.bold }}>
+      <View style={{ alignItems: 'flex-end' }}>
+        <TouchableOpacity style={styles.submit}>
+          <Text style={{ color: Theme.colors.gray5, ...Theme.typography.bold }}>
+            Submit
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.signupText}>Don't have an account?</Text>
+      <TouchableOpacity style={styles.signupButton}>
+        <Text style={{ color: Theme.colors.gray1, ...Theme.typography.bold }}>
           Submit
         </Text>
       </TouchableOpacity>
@@ -29,10 +37,10 @@ export default function Login({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
+    height: '100%',
     backgroundColor: Theme.colors.primary,
     padding: 40,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   loginText: {
     fontSize: 36,
@@ -50,7 +58,21 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     backgroundColor: Theme.colors.gray1,
-    width: "25%",
-    alignItems: "center",
+    width: '25%',
+    alignItems: 'center',
+    marginVertical: 30,
+  },
+  signupText: {
+    fontSize: 18,
+    color: Theme.colors.gray5,
+    ...Theme.typography.bold,
+  },
+  signupButton: {
+    padding: 10,
+    backgroundColor: Theme.colors.gray5,
+    borderRadius: 25,
+    width: '25%',
+    alignItems: 'center',
+    marginVertical: 5,
   },
 });

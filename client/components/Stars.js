@@ -1,7 +1,7 @@
-import React from "react";
-import { Text, View } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import Theme from "../Theme";
+import React from 'react';
+import { Text, View } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import Theme from '../Theme';
 
 export default function Stars({ stars, style }) {
   const getStars = () => {
@@ -11,12 +11,12 @@ export default function Stars({ stars, style }) {
         <FontAwesome
           key={i}
           name="star"
-          color={Theme.colors.primary}
+          color={Theme.colors.secondary}
           size={13}
         />
       );
     }
     return res;
   };
-  return <View style={{ flexDirection: "row", ...style }}>{getStars()}</View>;
+  return <View style={{ flexDirection: 'row', ...style }}>{getStars()}</View>;
 }
