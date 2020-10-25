@@ -3,9 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import Home from './screens/HomeStackNav';
 
 export default function App() {
+  const [user, setUser] = React.useState(null);
+  const AuthContext = React.createContext({ user: null });
   return (
-    <NavigationContainer>
-      <Home />
-    </NavigationContainer>
+    <AuthContext.Provider value={{ user: user }}>
+      <NavigationContainer>
+        <Home />
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
