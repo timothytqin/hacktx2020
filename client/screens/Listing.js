@@ -24,7 +24,6 @@ const pfpHeight = Dimensions.get('screen').width - 140;
 
 export default function Listing({ navigation, route }) {
   const { listing } = route.params;
-  console.log(listing);
   return (
     <Root>
       <ScrollView
@@ -110,7 +109,7 @@ export default function Listing({ navigation, route }) {
               backgroundColor: Theme.colors.gray5,
               height: 40,
             }}
-            onChange={(value) => console.log(value)}
+            // onChange={(value) => console.log(value)}
             borderColor="transparent"
             textColor={Theme.colors.gray2}
             minValue={0}

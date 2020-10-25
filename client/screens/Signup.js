@@ -6,19 +6,16 @@ import { signup, createUser } from '../firebase/firebaseAuth';
 import { AuthContext } from '../App';
 
 export default function Login({ navigation }) {
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { setUser } = useContext(AuthContext);
 
-  navigation.setOptions({ header: () => null });
-
   const submitHandler = () => {
     signup(email, password)
       .then((res) => {
-        createUser(res.user.uid, name).then(() =>
-          setUser({ name, tokens: 10 })
-        );
+        createUser(res.user.uid).then(() => {
+          navigation.navigate('Setup', { uid: res.user.uid, tokens: 10 });
+        });
       })
       .catch((err) => {
         alert(err);
@@ -27,15 +24,6 @@ export default function Login({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.loginText}>Sign Up</Text>
-      <TextInput
-        placeholder="name"
-        style={styles.input}
-        placeholderTextColor={Theme.colors.gray1}
-        value={name}
-        onChangeText={setName}
-        autoCorrect={false}
-        autoCapitalize="none"
-      />
       <TextInput
         placeholder="email"
         style={styles.input}

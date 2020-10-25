@@ -95,10 +95,7 @@ const styles = StyleSheet.create({
 })
 */
 
-
-
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -121,23 +118,20 @@ import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import { add } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import MapStyles from '../MapStyles.json';
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import ToggleButton from '../components/ToggleButton';
+import { updateUser } from '../firebase/firebaseAuth';
+import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
+import { AuthContext } from '../App';
+
 const pfpHeight = Dimensions.get('screen').width - 80;
 
-export default function CreateListing({ navigation }) {
+export default function CreateListing({ navigation, route }) {
+  const { user, setUser } = useContext(AuthContext);
   const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [region, setRegion] = useState({
-    latitude: 30.2880541,
-    longitude: -97.7452074,
-  });
-  const [description, setDescription] = useState('');
-  const [cost, setCost] = useState();
-  const [bed, setBed] = useState();
-  const [bath, setBath] = useState();
+  const [bio, setBio] = useState('');
   const [image, setImage] = useState(null);
+  const [base64, setBase64] = useState('');
+  const [selected, setSelected] = useState(-1);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -152,6 +146,7 @@ export default function CreateListing({ navigation }) {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      setBase64(result.base64);
     }
   };
 
@@ -168,6 +163,17 @@ export default function CreateListing({ navigation }) {
     })();
   }, []);
 
+  const handleSave = () => {
+    const data = {
+      ...route.params.token,
+      pfp: base64,
+      name,
+      bio,
+      donor: selected === 0,
+    };
+    updateUser(route.params.uid, data);
+    setUser({ ...user, uid: route.params.uid, ...data });
+  };
   return (
     <SafeAreaView>
       <ScrollView
@@ -199,20 +205,21 @@ export default function CreateListing({ navigation }) {
             value={name}
             onChangeText={setName}
           />
-          
+
           <View style={styles.pinPanel}>
-          <ToggleButton/>
+            <ToggleButton selected={selected} setSelected={setSelected} />
           </View>
         </View>
         <TextInput
-          style={styles.description}
+          style={styles.bio}
           placeholder="Bio"
-          value={description}
-          onChangeText={setDescription}
+          value={bio}
+          onChangeText={setBio}
           height={120}
         />
         <TouchableOpacity
           style={{ ...styles.button, backgroundColor: Theme.colors.primary }}
+          onPress={handleSave}
         >
           <Text style={{ ...styles.pinInput, color: Theme.colors.gray5 }}>
             Save
@@ -272,7 +279,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...Theme.shadow,
   },
-  description: {
+  bio: {
     marginVertical: 5,
     color: Theme.colors.gray2,
     fontSize: 16,

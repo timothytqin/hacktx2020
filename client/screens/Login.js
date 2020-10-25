@@ -6,7 +6,6 @@ import Theme from '../Theme';
 import { login, getUser } from '../firebase/firebaseAuth';
 
 export default function Login({ navigation }) {
-  navigation.setOptions({ header: () => null });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { setUser } = useContext(AuthContext);

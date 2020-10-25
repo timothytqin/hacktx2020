@@ -8,8 +8,8 @@ export const signup = (email, password) => {
   return auth.createUserWithEmailAndPassword(email, password);
 };
 
-export const createUser = (uid, name) => {
-  return db.doc(`users/${uid}`).set({ name, tokens: 10 });
+export const createUser = (uid) => {
+  return db.doc(`users/${uid}`).set({ tokens: 10 });
 };
 
 export const getUser = (uid) => {
@@ -17,4 +17,8 @@ export const getUser = (uid) => {
     .doc(`users/${uid}`)
     .get()
     .then((res) => res.data());
+};
+
+export const updateUser = (uid, data) => {
+  return db.doc(`users/${uid}`).update(data);
 };

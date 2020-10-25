@@ -1,48 +1,61 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, FlatList, SafeAreaView } from 'react-native';
-import Theme from '../Theme'
-const Data= [
-		{
-			id:"renter",
-			title:"Donor",
-		},
-		{
-			id:"donnor",
-			title:"Receiver",
-		},
-	];
-export default function ToggleButton() {
-
-  const [selected, setSelected] = useState(-1);
-  
-  function select (index){
-  	if(index===selected)
-  		setSelected(-1)
-  	else
-  		setSelected(index)
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  FlatList,
+  SafeAreaView,
+} from 'react-native';
+import Theme from '../Theme';
+const Data = [
+  {
+    id: 'renter',
+    title: 'Donor',
+  },
+  {
+    id: 'donnor',
+    title: 'Receiver',
+  },
+];
+export default function ToggleButton({ selected, setSelected }) {
+  function select(index) {
+    if (index === selected) setSelected(-1);
+    else setSelected(index);
   }
-  
-  
+
   return (
-  	<SafeAreaView>
-  		<FlatList contentContainerStyle={{flexDirection: "row"}} data={Data} renderItem = {({item, index})=> {
-  			return(
-  				<TouchableOpacity style={{ ...styles.button, ...styles.pin, backgroundColor: index === selected ? Theme.colors.secondary : "white"}} onPress={()=>select(index)}>
-              <Text style={{
+    <SafeAreaView>
+      <FlatList
+        contentContainerStyle={{ flexDirection: 'row' }}
+        data={Data}
+        renderItem={({ item, index }) => {
+          return (
+            <TouchableOpacity
+              style={{
+                ...styles.button,
+                ...styles.pin,
+                backgroundColor:
+                  index === selected ? Theme.colors.secondary : 'white',
+              }}
+              onPress={() => select(index)}
+            >
+              <Text
+                style={{
                   ...styles.buttonText,
                   fontSize: 20,
-                }}>{item.title}
+                }}
+              >
+                {item.title}
               </Text>
-            </TouchableOpacity>	
-  				);
-
-  		}}/>
- </SafeAreaView>);
+            </TouchableOpacity>
+          );
+        }}
+      />
+    </SafeAreaView>
+  );
 }
 const styles = StyleSheet.create({
-  
-  
-  
   pin: {
     backgroundColor: Theme.colors.gray5,
     marginRight: 10,
@@ -61,6 +74,6 @@ const styles = StyleSheet.create({
     ...Theme.typography.bold,
     color: Theme.colors.gray1,
     fontSize: 14,
-    textAlign: "center"
+    textAlign: 'center',
   },
 });
