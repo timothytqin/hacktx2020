@@ -1,9 +1,9 @@
-import React from "react";
-import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import Coin from "./Coin";
-import Stars from "./Stars";
-import Theme from "../Theme";
+import React from 'react';
+import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import Coin from '../assets/token.svg';
+import Stars from './Stars';
+import Theme from '../Theme';
 
 export default function Amenity({ listing, displayCost, onPress }) {
   return (
@@ -15,15 +15,15 @@ export default function Amenity({ listing, displayCost, onPress }) {
 }
 const styles = StyleSheet.create({
   bedBath: {
-    backgroundColor: "#1d1d1d",
+    backgroundColor: '#1d1d1d',
     padding: 7,
     borderRadius: 7,
-    flexDirection: "row",
+    flexDirection: 'row',
     marginRight: 5,
   },
   bedBathQuantity: {
     color: Theme.colors.gray3,
     fontSize: 13,
-    fontWeight: "500",
+    fontWeight: '500',
   },
 });

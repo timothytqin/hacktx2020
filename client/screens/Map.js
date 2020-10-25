@@ -11,7 +11,6 @@ import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { FontAwesome } from '@expo/vector-icons';
-import Coin from '../components/Coin';
 import ListingItem from '../components/ListingItem';
 import Theme from '../Theme';
 import { BlurView } from 'expo-blur';

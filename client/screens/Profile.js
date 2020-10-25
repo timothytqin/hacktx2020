@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -6,25 +6,25 @@ import {
   View,
   Image,
   TouchableOpacity,
-} from "react-native";
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
-import Animated from "react-native-reanimated";
-import BottomSheet from "reanimated-bottom-sheet";
-import { FontAwesome } from "@expo/vector-icons";
-import Coin from "../components/Coin";
-import ListingItem from "../components/ListingItem";
-import Theme from "../Theme";
-import Stars from "../components/Stars";
-import { FlatList } from "react-native-gesture-handler";
+} from 'react-native';
+import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
+import Animated from 'react-native-reanimated';
+import BottomSheet from 'reanimated-bottom-sheet';
+import { FontAwesome } from '@expo/vector-icons';
+import Coin from '../assets/token.svg';
+import ListingItem from '../components/ListingItem';
+import Theme from '../Theme';
+import Stars from '../components/Stars';
+import { FlatList } from 'react-native-gesture-handler';
 
 export default function Profile({ navigation }) {
   const dummyData = {
-    name: "26 West Apartments",
+    name: '26 West Apartments',
     bed: 3,
     bath: 3,
     cost: 2,
     seller: {
-      name: "Steve Han",
+      name: 'Steve Han',
       uid: 69,
       stars: 4,
     },
@@ -63,7 +63,7 @@ export default function Profile({ navigation }) {
             <ListingItem
               listing={item}
               displayCost={true}
-              onPress={() => navigation.navigate("Listing")}
+              onPress={() => navigation.navigate('Listing')}
             />
           )}
         />
@@ -86,35 +86,35 @@ const styles = StyleSheet.create({
   },
   contentContainerStyle: {},
   header: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   pfp: {
     width: 100,
     height: 100,
-    backgroundColor: "#696969",
+    backgroundColor: '#696969',
     borderRadius: 20,
   },
   details: {
     marginLeft: 20,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   name: {
     fontSize: 30,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: Theme.colors.primary,
   },
   tag: {
     padding: 5,
     borderRadius: 25,
-    width: "50%",
+    width: '50%',
     backgroundColor: Theme.colors.gray5,
   },
   tagText: {
-    textAlign: "center",
+    textAlign: 'center',
     ...Theme.typography.bold,
   },
   labelText: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 14,
     marginVertical: 5,
   },
@@ -124,24 +124,24 @@ const styles = StyleSheet.create({
   tokens: {
     borderRadius: 25,
     padding: 10,
-    width: "35%",
-    flexDirection: "row",
-    justifyContent: "center",
+    width: '35%',
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginVertical: 10,
     backgroundColor: Theme.colors.gray5,
   },
   tokenCount: {
     ...Theme.typography.bold,
     fontSize: 14,
-    color: "#383838",
+    color: '#383838',
     marginTop: 4,
   },
   receiptButton: {
     borderRadius: 25,
     padding: 10,
-    width: "45%",
-    flexDirection: "row",
-    justifyContent: "center",
+    width: '45%',
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginVertical: 10,
     backgroundColor: Theme.colors.primary,
   },
