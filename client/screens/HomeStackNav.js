@@ -9,6 +9,7 @@ import ProfileIcon from '../assets/profile.svg';
 import Listing from '../screens/Listing';
 import Profile from '../screens/Profile';
 import Login from './Login';
+import Signup from './Signup';
 import { StatusBar } from 'expo-status-bar';
 
 const Stack = createStackNavigator();
@@ -46,6 +47,7 @@ export default function BottomTabNav() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen
         name="Map"
         component={Map}
