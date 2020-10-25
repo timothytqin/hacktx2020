@@ -25,6 +25,8 @@ export default function Login({ navigation }) {
         placeholder="password"
         style={styles.input}
         placeholderTextColor={Theme.colors.gray1}
+        value={password}
+        onChangeText={setPassword}
         autoCorrect={false}
         secureTextEntry={true}
         autoCapitalize="none"

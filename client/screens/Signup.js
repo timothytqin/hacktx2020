@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Theme from '../Theme';
 
 export default function Login({ navigation }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   navigation.setOptions({ header: () => null });
+
+  const submitHandler = () => {};
   return (
     <View style={styles.container}>
       <Text style={styles.loginText}>Sign Up</Text>
@@ -12,21 +18,37 @@ export default function Login({ navigation }) {
         placeholder="name"
         style={styles.input}
         placeholderTextColor={Theme.colors.gray1}
+        value={name}
+        onChangeText={setName}
+        autoCorrect={false}
+        autoCapitalize="none"
       />
       <TextInput
         placeholder="email"
         style={styles.input}
         placeholderTextColor={Theme.colors.gray1}
+        value={email}
+        onChangeText={setEmail}
+        autoCorrect={false}
+        autoCapitalize="none"
       />
       <TextInput
         placeholder="password"
         style={styles.input}
         placeholderTextColor={Theme.colors.gray1}
+        value={password}
+        onChangeText={setPassword}
+        autoCorrect={false}
+        secureTextEntry={true}
+        autoCapitalize="none"
       />
       <TextInput
         placeholder="confirm password"
         style={styles.input}
         placeholderTextColor={Theme.colors.gray1}
+        autoCorrect={false}
+        secureTextEntry={true}
+        autoCapitalize="none"
       />
       <View style={{ alignItems: 'flex-end' }}>
         <TouchableOpacity style={styles.submit}>
