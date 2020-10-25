@@ -69,14 +69,7 @@ export default function Map({ navigation }) {
     headerRight: () => (
       <TouchableOpacity
         style={{ margin: 10 }}
-        onPress={() =>
-          navigation.navigate('Home', {
-            screen: 'Profile',
-            params: {
-              uid: user.uid,
-            },
-          })
-        }
+        onPress={() => navigation.navigate('Profile')}
       >
         <FontAwesome name="user-circle" size={24} />
       </TouchableOpacity>
@@ -132,7 +125,9 @@ export default function Map({ navigation }) {
               listing={listingsById[item]}
               displayCost={true}
               onPress={() =>
-                navigation.navigate('Listing', { listing: listingsById[item] })
+                navigation.navigate('Listing', {
+                  listing: listingsById[item],
+                })
               }
               key={item}
             />

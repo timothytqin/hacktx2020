@@ -22,10 +22,11 @@ import { Root, Popup } from 'popup-ui';
 import { AuthContext } from '../App';
 
 export default function Profile({ navigation, route }) {
-  console.log(route.params.user);
   const { users, user } = useContext(AuthContext);
-  // if (route.param)
-  const currUser = users[uid];
+  var currUser = user;
+  if (route.param) {
+    currUser = users[route.param.uid];
+  }
   return (
     <Root>
       <SafeAreaView>
