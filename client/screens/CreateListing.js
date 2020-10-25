@@ -49,6 +49,7 @@ export default function CreateListing({ navigation }) {
   const [bed, setBed] = useState();
   const [bath, setBath] = useState();
   const [image, setImage] = useState(null);
+  const [base64, setBase64] = useState('');
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -63,6 +64,7 @@ export default function CreateListing({ navigation }) {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      setBase64(result.base64);
     }
   };
 
