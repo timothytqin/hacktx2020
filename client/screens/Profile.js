@@ -86,8 +86,9 @@ export default function Profile({ navigation, route }) {
           </View>
           <TouchableOpacity
             style={styles.receiptButton}
-            onPress={() => {
+            onPress={async () => {
               // TODO: firebase function to clear tokens
+              await db.doc('users/' + currUser.uid).update({ tokens: 0 });
               Popup.show({
                 type: 'Success',
                 title: 'Successfully claimed tokens',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -20,12 +20,15 @@ import BackButton from '../components/BackButton';
 import { Root, Popup } from 'popup-ui';
 import NumericInput from 'react-native-numeric-input';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { db } from '../firebase/firebase';
+import { AuthContext } from '../App';
 
 const pfpHeight = Dimensions.get('screen').width - 140;
 
 export default function Listing({ navigation, route }) {
   const { listing } = route.params;
   const [days, setDays] = useState(0);
+  const { user, users } = useContext(AuthContext);
   return (
     <Root>
       <SafeAreaView>
@@ -95,9 +98,14 @@ export default function Listing({ navigation, route }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={{ ...styles.button, backgroundColor: Theme.colors.primary }}
-            onPress={() => {
-              // TODO: firebase function to change tokens
+            onPress={async () => {
               const cost = listing.cost * days;
+              await db
+                .doc('users/' + user.uid)
+                .update({ tokens: user.tokens - cost });
+              await db
+                .doc('users/' + listing.donor.uid)
+                .update({ tokens: users[listing.donor.uid].tokens + cost });
               Popup.show({
                 type: 'Success',
                 title: 'Successfully Booked Place',
