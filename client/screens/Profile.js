@@ -16,6 +16,7 @@ import ListingItem from '../components/ListingItem';
 import Theme from '../Theme';
 import Stars from '../components/Stars';
 import { FlatList } from 'react-native-gesture-handler';
+import BackButton from '../components/BackButton';
 
 export default function Profile({ navigation }) {
   const dummyData = {
@@ -36,6 +37,7 @@ export default function Profile({ navigation }) {
       style={styles.container}
       contentContainerStyle={styles.contentContainerStyle}
     >
+      <BackButton navigation={navigation} />
       <View style={styles.header}>
         <View style={styles.pfp} />
         <View style={styles.details}>
@@ -48,7 +50,7 @@ export default function Profile({ navigation }) {
       </View>
       <View style={styles.bio}>
         <Text style={styles.labelText}>Bio</Text>
-        <Text>
+        <Text style={styles.bioText}>
           I’m a current student at the University of Texas at Austin. Since this
           semester is completely online, I’m staying at home. However, I still
           have to pay the lease for my apartment in West Campus. Instead of
@@ -67,6 +69,7 @@ export default function Profile({ navigation }) {
               key={item.name}
             />
           )}
+          scrollEnabled={false}
         />
       </View>
       <View style={styles.tokens}>
@@ -85,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.colors.gray4,
     padding: 35,
   },
-  contentContainerStyle: {},
+  contentContainerStyle: { paddingBottom: 60 },
   header: {
     flexDirection: 'row',
   },
@@ -101,7 +104,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: '900',
     color: Theme.colors.primary,
   },
   tag: {
@@ -109,18 +112,24 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     width: '50%',
     backgroundColor: Theme.colors.gray5,
+    marginTop: 5,
   },
   tagText: {
     textAlign: 'center',
-    ...Theme.typography.bold,
+    color: Theme.colors.gray1,
+    fontWeight: '900',
   },
   labelText: {
-    fontWeight: 'bold',
-    fontSize: 14,
+    fontWeight: '800',
+    fontSize: 16,
     marginVertical: 5,
+    color: Theme.colors.gray1,
   },
   bio: {
     marginVertical: 25,
+  },
+  bioText: {
+    color: Theme.colors.gray1,
   },
   tokens: {
     borderRadius: 25,

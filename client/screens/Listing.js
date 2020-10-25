@@ -16,6 +16,7 @@ import Coin from '../assets/token.svg';
 import ListingItem from '../components/ListingItem';
 import Theme from '../Theme';
 import Stars from '../components/Stars';
+import BackButton from '../components/BackButton';
 
 const pfpHeight = Dimensions.get('screen').width - 140;
 
@@ -25,6 +26,7 @@ export default function Listing({ navigation }) {
       style={styles.container}
       contentContainerStyle={styles.contentContainerStyle}
     >
+      <BackButton navigation={navigation} />
       <View style={styles.pfp} />
       <View style={styles.details}>
         <Text style={styles.name}>26 West Apartments</Text>
@@ -37,7 +39,7 @@ export default function Listing({ navigation }) {
               Steve Han
             </Text>
           </TouchableOpacity>
-          <Stars stars={4} style={{ marginBottom: 5 }} />
+          <Stars stars={4} style={{ marginBottom: 0, marginLeft: 10 }} />
         </View>
         <View style={styles.pinPanel}>
           <TouchableOpacity style={{ ...styles.button, ...styles.pin }}>
@@ -45,7 +47,6 @@ export default function Listing({ navigation }) {
             <Text
               style={{
                 ...styles.buttonText,
-                color: Theme.colors.gray1,
                 fontSize: 20,
               }}
             >
@@ -87,7 +88,7 @@ export default function Listing({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Theme.colors.gray4,
-    padding: 70,
+    padding: 40,
   },
   pfp: {
     width: '100%',
@@ -96,10 +97,11 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   name: {
-    fontSize: 30,
-    fontWeight: 'bold',
+    fontSize: 35,
+    fontWeight: '900',
     color: Theme.colors.primary,
     marginVertical: 10,
+    marginTop: 20,
   },
   soldBy: {
     flexDirection: 'row',
@@ -119,13 +121,17 @@ const styles = StyleSheet.create({
   },
   pin: {
     backgroundColor: Theme.colors.gray5,
-    marginRight: 5,
+    marginRight: 10,
     width: '20%',
     justifyContent: 'center',
     alignItems: 'center',
+    ...Theme.shadow,
   },
   description: {
     marginVertical: 5,
+    color: Theme.colors.gray2,
+    fontSize: 16,
+    marginBottom: 20,
   },
   button: {
     borderRadius: 25,
@@ -133,10 +139,12 @@ const styles = StyleSheet.create({
     width: '55%',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginVertical: 10,
+    marginVertical: 8,
+    ...Theme.shadow,
   },
   buttonText: {
     ...Theme.typography.bold,
+    color: Theme.colors.gray1,
     fontSize: 14,
   },
 });

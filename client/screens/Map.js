@@ -155,8 +155,15 @@ export default function Map({ navigation }) {
           }}
         >
           <CustomMarker listing={{ cost: 3 }} />
-          <Callout>
-            <ListingItem
+          <Callout
+            style={{ borderRadius: 20, padding: 5 }}
+            onPress={() => navigation.navigate('Listing')}
+          >
+            <Text style={{ color: Theme.colors.gray1, fontWeight: '700' }}>
+              26 West Apartments
+            </Text>
+            {/* idk why adding the custom marker destroys the custom callout */}
+            {/* <ListingItem
               listing={{
                 name: '26 West Apartments',
                 bed: 3,
@@ -171,7 +178,7 @@ export default function Map({ navigation }) {
                 uid: 69,
               }}
               displayCost={false}
-            />
+            /> */}
           </Callout>
         </Marker>
       </MapView>
