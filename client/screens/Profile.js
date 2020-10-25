@@ -73,7 +73,10 @@ export default function Profile({ navigation }) {
             )}
             scrollEnabled={false}
           />
-          <TouchableOpacity style={{ ...styles.receiptButton, marginLeft: 20 }}>
+          <TouchableOpacity
+            style={{ ...styles.receiptButton, marginLeft: 20 }}
+            onPress={() => navigation.navigate('Create')}
+          >
             <Text style={styles.receiptText}>Create Listing +</Text>
           </TouchableOpacity>
         </View>
@@ -92,7 +95,7 @@ export default function Profile({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Theme.colors.gray4,
-    padding: 35,
+    paddingHorizontal: 35,
   },
   contentContainerStyle: { paddingBottom: 60 },
   header: {

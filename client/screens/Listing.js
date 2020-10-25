@@ -20,7 +20,9 @@ import BackButton from '../components/BackButton';
 
 const pfpHeight = Dimensions.get('screen').width - 140;
 
-export default function Listing({ navigation }) {
+export default function Listing({ navigation, route }) {
+  const { listing } = route.params;
+  console.log(listing);
   return (
     <ScrollView
       style={styles.container}
@@ -29,14 +31,14 @@ export default function Listing({ navigation }) {
       <BackButton navigation={navigation} />
       <View style={styles.pfp} />
       <View style={styles.details}>
-        <Text style={styles.name}>26 West Apartments</Text>
+        <Text style={styles.name}>{listing.name}</Text>
         <View style={styles.soldBy}>
           <Text style={styles.subtitle}>sold by </Text>
           <TouchableOpacity
             onPress={() => navigation.navigate('Profile', { uid: 69 })}
           >
             <Text style={{ ...styles.subtitle, ...styles.seller }}>
-              Steve Han
+              {listing.donor.name}
             </Text>
           </TouchableOpacity>
           <Stars stars={4} style={{ marginBottom: 0, marginLeft: 10 }} />
@@ -51,24 +53,24 @@ export default function Listing({ navigation }) {
               }}
             >
               {' '}
-              2
+              {listing.cost}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={{ ...styles.button, ...styles.pin }}>
             <FontAwesome name="bed" size={20} color={Theme.colors.gray1} />
-            <Text style={{ ...styles.buttonText, fontSize: 20 }}> 3</Text>
+            <Text style={{ ...styles.buttonText, fontSize: 20 }}>
+              {listing.bed}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={{ ...styles.button, ...styles.pin }}>
             <FontAwesome name="bath" size={20} color={Theme.colors.gray1} />
-            <Text style={{ ...styles.buttonText, fontSize: 20 }}> 3</Text>
+            <Text style={{ ...styles.buttonText, fontSize: 20 }}>
+              {listing.bath}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
-      <Text style={styles.description}>
-        This is a very nice apartment. You are welcome to use the food in the
-        fridge and the cookware in the kitchen. Please don’t smoke in the
-        apartment though, as it will trigger the smoke detector.
-      </Text>
+      <Text style={styles.description}>{listing.description}</Text>
       <TouchableOpacity
         style={{ ...styles.button, backgroundColor: Theme.colors.gray5 }}
       >
