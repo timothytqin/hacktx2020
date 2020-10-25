@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import Home from './screens/RootDrawerNav';
 import Auth from './screens/AuthStackNav';
-import { db } from './firebase';
+import { db } from './firebase/firebase';
 
 console.disableYellowBox = true;
 
@@ -32,7 +32,7 @@ export default function App() {
   }, []);
   return (
     <AuthContext.Provider value={{ user, setUser, listingsById, listingIds }}>
-      <NavigationContainer>{user ? <Auth /> : <Home />}</NavigationContainer>
+      <NavigationContainer>{!user ? <Auth /> : <Home />}</NavigationContainer>
     </AuthContext.Provider>
   );
 }
