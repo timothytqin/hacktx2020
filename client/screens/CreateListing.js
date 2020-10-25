@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -7,6 +7,8 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  TextInput,
+  Platform,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Coin from '../assets/token.svg';
@@ -14,7 +16,9 @@ import ListingItem from '../components/ListingItem';
 import Theme from '../Theme';
 import Stars from '../components/Stars';
 import BackButton from '../components/BackButton';
-import { TextInput } from 'react-native-gesture-handler';
+
+import * as ImagePicker from 'expo-image-picker';
+import Constants from 'expo-constants';
 
 const pfpHeight = Dimensions.get('screen').width - 80;
 
@@ -24,6 +28,7 @@ export default function CreateListing({ navigation }) {
   const [cost, setCost] = useState();
   const [bed, setBed] = useState();
   const [bath, setBath] = useState();
+  const [image, setImage] = useState(null);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -31,6 +36,7 @@ export default function CreateListing({ navigation }) {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
+      base64: true,
     });
 
     console.log(result);
@@ -40,13 +46,42 @@ export default function CreateListing({ navigation }) {
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const {
+          status,
+        } = await ImagePicker.requestCameraRollPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
+
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.contentContainerStyle}
     >
       <BackButton navigation={navigation} />
-      <View style={styles.pfp} />
+
+      <TouchableOpacity onPress={pickImage}>
+        {image ? (
+          <Image source={{ uri: image }} style={styles.pfp} />
+        ) : (
+          <View
+            style={{
+              ...styles.pfp,
+              borderWidth: 10,
+              borderStyle: 'dashed',
+              borderColor: Theme.colors.gray3,
+            }}
+          >
+            <FontAwesome name="plus" size={69} color={Theme.colors.gray3} />
+          </View>
+        )}
+      </TouchableOpacity>
       <View style={styles.details}>
         <TextInput
           style={styles.name}
@@ -119,8 +154,9 @@ const styles = StyleSheet.create({
   pfp: {
     width: '100%',
     height: pfpHeight,
-    backgroundColor: '#696969',
     borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   name: {
     fontSize: 35,
