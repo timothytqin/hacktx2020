@@ -28,16 +28,16 @@ import { Root, Popup } from 'popup-ui';
 const pfpHeight = Dimensions.get('screen').width - 80;
 
 export default function CreateListing({ navigation }) {
-  navigation.setOptions({
-    drawerIcon: () => (
-      <FontAwesome
-        name="plus-circle"
-        size={38}
-        style={{ marginLeft: 2 }}
-        color={Theme.colors.primary}
-      />
-    ),
-  });
+  // navigation.setOptions({
+  //   drawerIcon: () => (
+  //     <FontAwesome
+  //       name="plus-circle"
+  //       size={38}
+  //       style={{ marginLeft: 2 }}
+  //       color={Theme.colors.primary}
+  //     />
+  //   ),
+  // });
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [region, setRegion] = useState({
