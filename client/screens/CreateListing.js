@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -24,7 +24,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import MapStyles from '../MapStyles.json';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Root, Popup } from 'popup-ui';
-
+import { add_listing} from '../firebase/firebaseListing';
+import {AuthContext} from "../App"
 const pfpHeight = Dimensions.get('screen').width - 80;
 
 export default function CreateListing({ navigation }) {
@@ -49,7 +50,10 @@ export default function CreateListing({ navigation }) {
   const [bed, setBed] = useState();
   const [bath, setBath] = useState();
   const [image, setImage] = useState(null);
-  const [base64, setBase64] = useState('');
+  const [base64, setBase64] = useState("");
+
+  const {user} = useContext(AuthContext);
+
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -67,8 +71,7 @@ export default function CreateListing({ navigation }) {
       setBase64(result.base64);
     }
   };
-
-  useEffect(() => {
+    useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
         const {
@@ -80,6 +83,24 @@ export default function CreateListing({ navigation }) {
       }
     })();
   }, []);
+  const handleSave = () => {
+    const data = {
+      address,
+      name,
+      location: region,
+      description,
+      cost,
+      bed,
+      bath,
+      pfp: base64,
+      donor: {
+        name: user.name,
+        stars: 4,
+        uid: user.uid
+      }
+    };
+    add_listing(data);
+  };
 
   return (
     <Root>
@@ -200,6 +221,7 @@ export default function CreateListing({ navigation }) {
                   navigation.navigate('Home');
                 },
               });
+              handleSave();
             }}
           >
             <Text style={{ ...styles.pinInput, color: Theme.colors.gray5 }}>
