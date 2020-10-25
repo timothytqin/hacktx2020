@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import { AuthContext } from '../App';
 import Theme from '../Theme';
 
 export default function Login({ navigation }) {
   navigation.setOptions({ header: () => null });
+  const [email, setEmail] = useState('');
+  const { setUser } = useContext(AuthContext);
   return (
     <View style={styles.container}>
       <Text style={styles.loginText}>Login</Text>
@@ -12,14 +15,21 @@ export default function Login({ navigation }) {
         placeholder="email"
         style={styles.input}
         placeholderTextColor={Theme.colors.gray1}
+        value={email}
+        onChangeText={setEmail}
+        autoCorrect={false}
+        autoCapitalize="none"
       />
       <TextInput
         placeholder="password"
         style={styles.input}
         placeholderTextColor={Theme.colors.gray1}
+        autoCorrect={false}
+        secureTextEntry={true}
+        autoCapitalize="none"
       />
       <View style={{ alignItems: 'flex-end' }}>
-        <TouchableOpacity style={styles.submit}>
+        <TouchableOpacity style={styles.submit} onPress={() => setUser(email)}>
           <Text style={{ color: Theme.colors.gray5, ...Theme.typography.bold }}>
             Submit
           </Text>
