@@ -73,7 +73,10 @@ export default function Profile({ navigation }) {
             )}
             scrollEnabled={false}
           />
-          <TouchableOpacity style={{ ...styles.receiptButton, marginLeft: 20 }}>
+          <TouchableOpacity
+            style={{ ...styles.receiptButton, marginLeft: 20 }}
+            onPress={() => navigation.navigate('Create')}
+          >
             <Text style={styles.receiptText}>Create Listing +</Text>
           </TouchableOpacity>
         </View>
