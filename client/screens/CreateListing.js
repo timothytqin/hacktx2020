@@ -19,11 +19,20 @@ import BackButton from '../components/BackButton';
 
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
+import { add } from 'react-native-reanimated';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import MapStyles from '../MapStyles.json';
+import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 
 const pfpHeight = Dimensions.get('screen').width - 80;
 
 export default function CreateListing({ navigation }) {
   const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [region, setRegion] = useState({
+    latitude: 30.2880541,
+    longitude: -97.7452074,
+  });
   const [description, setDescription] = useState('');
   const [cost, setCost] = useState();
   const [bed, setBed] = useState();
@@ -60,96 +69,125 @@ export default function CreateListing({ navigation }) {
   }, []);
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.contentContainerStyle}
-    >
-      <BackButton navigation={navigation} />
-
-      <TouchableOpacity onPress={pickImage}>
-        {image ? (
-          <Image source={{ uri: image }} style={styles.pfp} />
-        ) : (
-          <View
-            style={{
-              ...styles.pfp,
-              borderWidth: 10,
-              borderStyle: 'dashed',
-              borderColor: Theme.colors.gray3,
-            }}
-          >
-            <FontAwesome name="plus" size={69} color={Theme.colors.gray3} />
-          </View>
-        )}
-      </TouchableOpacity>
-      <View style={styles.details}>
-        <TextInput
-          style={styles.name}
-          placeholder="Property Name"
-          value={name}
-          onChangeText={setName}
-        />
-        <View style={styles.pinPanel}>
-          <TouchableOpacity style={{ ...styles.button, ...styles.pin }}>
-            <Coin />
-            <TextInput
-              style={{
-                ...styles.pinInput,
-                fontSize: 20,
-              }}
-              placeholder="Cost"
-              value={cost}
-              onChangeText={setCost}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ ...styles.button, ...styles.pin }}>
-            <FontAwesome name="bed" size={20} color={Theme.colors.gray1} />
-            <TextInput
-              style={{
-                ...styles.pinInput,
-                fontSize: 20,
-              }}
-              placeholder="Bed"
-              value={bed}
-              onChangeText={setBed}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ ...styles.button, ...styles.pin }}>
-            <FontAwesome name="bath" size={20} color={Theme.colors.gray1} />
-            <TextInput
-              style={{
-                ...styles.pinInput,
-                fontSize: 20,
-              }}
-              placeholder="Bath"
-              value={bath}
-              onChangeText={setBath}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <TextInput
-        style={styles.description}
-        placeholder="Description"
-        value={description}
-        onChangeText={setDescription}
-        height={120}
-      />
-      <TouchableOpacity
-        style={{ ...styles.button, backgroundColor: Theme.colors.primary }}
+    <SafeAreaView>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainerStyle}
       >
-        <Text style={{ ...styles.pinInput, color: Theme.colors.gray5 }}>
-          Save
-        </Text>
-      </TouchableOpacity>
-    </ScrollView>
+        <BackButton navigation={navigation} />
+
+        <TouchableOpacity onPress={pickImage}>
+          {image ? (
+            <Image source={{ uri: image }} style={styles.pfp} />
+          ) : (
+            <View
+              style={{
+                ...styles.pfp,
+                borderWidth: 10,
+                borderStyle: 'dashed',
+                borderColor: Theme.colors.gray3,
+              }}
+            >
+              <FontAwesome name="plus" size={69} color={Theme.colors.gray3} />
+            </View>
+          )}
+        </TouchableOpacity>
+        <View style={styles.details}>
+          <TextInput
+            style={styles.name}
+            placeholder="Property Name"
+            value={name}
+            onChangeText={setName}
+          />
+          <TextInput
+            style={{
+              ...styles.name,
+              fontSize: 20,
+            }}
+            placeholder="Address"
+            value={address}
+            onChangeText={setAddress}
+          />
+          <View style={styles.map}>
+            <MapView
+              provider={PROVIDER_GOOGLE}
+              style={{ width: pfpHeight, height: pfpHeight }}
+              initialRegion={{
+                ...region,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01,
+              }}
+              onRegionChangeComplete={(r) => {
+                setRegion({ latitude: r.latitude, longitude: r.longitude });
+              }}
+              customMapStyle={MapStyles}
+            />
+            <View style={styles.fakeMarker}>
+              <FontAwesome name="map-pin" color={'#f00'} size={32} />
+            </View>
+          </View>
+          <View style={styles.pinPanel}>
+            <TouchableOpacity style={{ ...styles.button, ...styles.pin }}>
+              <Coin />
+              <TextInput
+                style={{
+                  ...styles.pinInput,
+                  fontSize: 20,
+                }}
+                placeholder="Cost"
+                value={cost}
+                onChangeText={setCost}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={{ ...styles.button, ...styles.pin }}>
+              <FontAwesome name="bed" size={20} color={Theme.colors.gray1} />
+              <TextInput
+                style={{
+                  ...styles.pinInput,
+                  fontSize: 20,
+                }}
+                placeholder="Bed"
+                value={bed}
+                onChangeText={setBed}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={{ ...styles.button, ...styles.pin }}>
+              <FontAwesome name="bath" size={20} color={Theme.colors.gray1} />
+              <TextInput
+                style={{
+                  ...styles.pinInput,
+                  fontSize: 20,
+                }}
+                placeholder="Bath"
+                value={bath}
+                onChangeText={setBath}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <TextInput
+          style={styles.description}
+          placeholder="Description"
+          value={description}
+          onChangeText={setDescription}
+          height={120}
+        />
+        <TouchableOpacity
+          style={{ ...styles.button, backgroundColor: Theme.colors.primary }}
+        >
+          <Text style={{ ...styles.pinInput, color: Theme.colors.gray5 }}>
+            Save
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Theme.colors.gray4,
-    padding: 40,
+    paddingHorizontal: 40,
   },
   pfp: {
     width: '100%',
@@ -164,6 +202,12 @@ const styles = StyleSheet.create({
     color: Theme.colors.primary,
     marginVertical: 10,
     marginTop: 20,
+  },
+  map: {},
+  fakeMarker: {
+    left: '47%',
+    position: 'absolute',
+    top: '40%',
   },
   soldBy: {
     flexDirection: 'row',
