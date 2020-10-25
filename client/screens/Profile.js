@@ -19,14 +19,12 @@ import { FlatList } from 'react-native-gesture-handler';
 import BackButton from '../components/BackButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Root, Popup } from 'popup-ui';
-import AuthContext from '../App';
+import { AuthContext } from '../App';
 
 export default function Profile({ navigation, route }) {
-  console.log(route);
-  console.log(navigation);
-  // const { uid } = route.params;
-  const { users } = useContext(AuthContext);
-  const uid = '31TKgOcbR9NW5gSYZB5117s6AqA3';
+  console.log(route.params.user);
+  const { users, user } = useContext(AuthContext);
+  // if (route.param)
   const currUser = users[uid];
   return (
     <Root>
