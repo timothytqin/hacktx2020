@@ -6,7 +6,7 @@ import Map from './Map';
 
 const Stack = createStackNavigator();
 
-export default function HomeStackNav() {
+export default function HomeStackNav({ navigation }) {
   return (
     <Stack.Navigator>
       <Stack.Screen
