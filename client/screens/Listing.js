@@ -37,7 +37,15 @@ export default function Listing({ navigation, route }) {
           contentContainerStyle={styles.contentContainerStyle}
         >
           <BackButton navigation={navigation} />
-          <View style={styles.pfp} />
+          <Image
+            style={{
+              ...styles.pfp,
+              resizeMode: 'cover',
+            }}
+            source={{
+              uri: `data:image/png;base64,${listing.pfp}`,
+            }}
+          />
           <View style={styles.details}>
             <Text style={styles.name}>{listing.name}</Text>
             <View style={styles.soldBy}>

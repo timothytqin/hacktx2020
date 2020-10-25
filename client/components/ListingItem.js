@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, Image } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Stars from './Stars';
 import Theme from '../Theme';
@@ -9,7 +9,15 @@ export default function ListingItem({ listing, displayCost, onPress }) {
   return listing ? (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.imagePanel}>
-        <View style={styles.image} />
+        <Image
+          style={{
+            ...styles.image,
+            resizeMode: 'cover',
+          }}
+          source={{
+            uri: `data:image/png;base64,${listing.pfp}`,
+          }}
+        />
       </View>
       <View style={styles.detailsPanel}>
         <Text style={styles.title}>{listing.name}</Text>

@@ -20,13 +20,33 @@ import BackButton from '../components/BackButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Root, Popup } from 'popup-ui';
 import { AuthContext } from '../App';
+import { db } from '../firebase/firebase';
 
 export default function Profile({ navigation, route }) {
-  const { users, user } = useContext(AuthContext);
+  const { users, user, listingsById } = useContext(AuthContext);
   var currUser = user;
   if (route.param) {
     currUser = users[route.param.uid];
   }
+  const getListings = () => {
+    const res = [];
+    for (const key in listingsById) {
+      if (listingsById[key].donor.uid === currUser.uid)
+        res.push(listingsById[key]);
+    }
+    return res;
+  };
+  const getBookings = () => {
+    const res = [];
+    for (const key in listingsById) {
+      if (
+        listingsById[key].booker &&
+        listingsById[key].booker.uid === currUser.uid
+      )
+        res.push(listingsById[key]);
+    }
+    return res;
+  };
   return (
     <Root>
       <SafeAreaView>
@@ -60,49 +80,68 @@ export default function Profile({ navigation, route }) {
             <Text style={styles.bioText}>{currUser.bio}</Text>
           </View>
           <View style={styles.listings}>
-            <Text style={styles.labelText}>Listings</Text>
-            {/* <FlatList
-            data={[dummyData, dummyData, dummyData]}
-            renderItem={({ item }) => (
-              <ListingItem
-                listing={item}
-                displayCost={true}
-                onPress={() => navigation.navigate('Listing')}
-                key={item.name}
-              />
+            <Text style={styles.labelText}>
+              {currUser.donor ? 'Listings' : 'Bookings'}
+            </Text>
+            <FlatList
+              data={currUser.donor ? getListings() : getBookings()}
+              renderItem={({ item }) => {
+                console.log(item);
+                return (
+                  <ListingItem
+                    listing={item}
+                    displayCost={true}
+                    onPress={() =>
+                      navigation.navigate('Listing', { listing: item })
+                    }
+                    key={item.name}
+                  />
+                );
+              }}
+              scrollEnabled={false}
+              ListEmptyComponent={() => (
+                <View>
+                  <Text>
+                    You do not have any{' '}
+                    {currUser.donor ? 'listings' : 'bookings'}.
+                  </Text>
+                </View>
+              )}
+            />
+            {currUser.donor && (
+              <TouchableOpacity
+                style={{ ...styles.receiptButton, marginLeft: 20 }}
+                onPress={() => navigation.navigate('Create')}
+              >
+                <Text style={styles.receiptText}>Create Listing +</Text>
+              </TouchableOpacity>
             )}
-            scrollEnabled={false}
-          /> */}
-            <TouchableOpacity
-              style={{ ...styles.receiptButton, marginLeft: 20 }}
-              onPress={() => navigation.navigate('Create')}
-            >
-              <Text style={styles.receiptText}>Create Listing +</Text>
-            </TouchableOpacity>
           </View>
           <View style={styles.tokens}>
             <Coin />
             <Text style={styles.tokenCount}> Tokens: {currUser.tokens}</Text>
           </View>
-          <TouchableOpacity
-            style={styles.receiptButton}
-            onPress={async () => {
-              // TODO: firebase function to clear tokens
-              await db.doc('users/' + currUser.uid).update({ tokens: 0 });
-              Popup.show({
-                type: 'Success',
-                title: 'Successfully claimed tokens',
-                button: true,
-                textBody: 'Your tax receipt is sent to you email',
-                buttonText: 'Ok',
-                callback: () => {
-                  Popup.hide();
-                },
-              });
-            }}
-          >
-            <Text style={styles.receiptText}>Get my tax receipt</Text>
-          </TouchableOpacity>
+          {currUser.donor && (
+            <TouchableOpacity
+              style={styles.receiptButton}
+              onPress={async () => {
+                // TODO: firebase function to clear tokens
+                await db.doc('users/' + currUser.uid).update({ tokens: 0 });
+                Popup.show({
+                  type: 'Success',
+                  title: 'Successfully claimed tokens',
+                  button: true,
+                  textBody: 'Your tax receipt is sent to you email',
+                  buttonText: 'Ok',
+                  callback: () => {
+                    Popup.hide();
+                  },
+                });
+              }}
+            >
+              <Text style={styles.receiptText}>Get my tax receipt</Text>
+            </TouchableOpacity>
+          )}
         </ScrollView>
       </SafeAreaView>
     </Root>

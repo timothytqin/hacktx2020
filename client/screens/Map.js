@@ -104,7 +104,7 @@ export default function Map({ navigation }) {
               marginTop: 20,
             }}
           >
-            Welcome, user
+            Welcome, {user.name}
           </Text>
           <Text
             style={{
@@ -114,7 +114,9 @@ export default function Map({ navigation }) {
               marginBottom: 20,
             }}
           >
-            Looking for a place to stay?
+            {user.donor
+              ? 'Have an extra place?'
+              : 'Looking for a place to stay?'}
           </Text>
         </View>
         <FlatList
@@ -164,23 +166,6 @@ export default function Map({ navigation }) {
                 <Text style={{ color: Theme.colors.gray1, fontWeight: '700' }}>
                   {listing.name}
                 </Text>
-                {/* idk why adding the custom marker destroys the custom callout */}
-                {/* <ListingItem
-              listing={{
-                name: '26 West Apartments',
-                bed: 3,
-                bath: 3,
-                cost: 2,
-                seller: {
-                  name: 'Steve Han',
-                  uid: 69,
-                  stars: 4,
-                },
-                distance: 2,
-                uid: 69,
-              }}
-              displayCost={false}
-            /> */}
               </Callout>
             </Marker>
           );
