@@ -1,5 +1,12 @@
 import React from "react";
-import { ScrollView, Text, View, Image } from "react-native";
+import {
+  ScrollView,
+  Text,
+  View,
+  Image,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
 import Animated from "react-native-reanimated";
 import BottomSheet from "reanimated-bottom-sheet";
@@ -7,7 +14,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import Coin from "../components/Coin";
 import ListingItem from "../components/ListingItem";
 import Theme from "../Theme";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { BlurView } from "expo-blur";
 
 export default function Map({ navigation }) {
   const dummyData = {
@@ -35,7 +42,8 @@ export default function Map({ navigation }) {
   });
   const renderContent = () => (
     <>
-      <View
+      <BlurView
+        intensity={100}
         style={{
           width: "100%",
           backgroundColor: Theme.colors.gray5,
@@ -48,7 +56,7 @@ export default function Map({ navigation }) {
           style={{
             width: "10%",
             height: 3,
-            backgroundColor: "#525252",
+            backgroundColor: Theme.colors.gray2,
             borderRadius: 5,
             alignSelf: "center",
           }}
@@ -56,9 +64,8 @@ export default function Map({ navigation }) {
         <Text
           style={{
             fontSize: 24,
-            fontWeight: "600",
-            color: Theme.colors.gray3,
-            backgroundColor: "#121212",
+            fontWeight: "700",
+            color: Theme.colors.primary,
             marginVertical: 20,
           }}
         >
@@ -74,7 +81,7 @@ export default function Map({ navigation }) {
             />
           )}
         />
-      </View>
+      </BlurView>
     </>
   );
 
