@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import Home from './screens/HomeStackNav';
+import Home from './screens/RootDrawerNav';
 import Auth from './screens/AuthStackNav';
 
 const AuthContext = React.createContext({ user: null, setUser: null });

@@ -21,7 +21,7 @@ import ProfileIcon from '../assets/profile.svg';
 import MapStyles from '../MapStyles.json';
 import CustomMarker from '../components/MapMarker';
 
-const HomeHeader = () => {
+const HomeHeader = ({ navigation }) => {
   return (
     <View
       intensity={100}
@@ -35,19 +35,29 @@ const HomeHeader = () => {
       }}
     >
       <StatusBar style="dark" />
-      <Logo />
-      <Text
-        style={{
-          fontWeight: '800',
-          color: Theme.colors.gray1,
-          fontSize: 25,
-          marginLeft: 10,
-          marginTop: 5,
-        }}
+      <TouchableOpacity
+        style={{ flexDirection: 'row' }}
+        onPress={() => navigation.openDrawer()}
       >
-        Refuge
-      </Text>
-      <ProfileIcon style={{ marginLeft: 'auto', marginTop: 5 }} />
+        <Logo />
+        <Text
+          style={{
+            fontWeight: '800',
+            color: Theme.colors.gray1,
+            fontSize: 25,
+            marginLeft: 10,
+            marginTop: 5,
+          }}
+        >
+          Refuge
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{ marginLeft: 'auto', marginTop: 5 }}
+        onPress={() => navigation.navigate('Profile')}
+      >
+        <ProfileIcon />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -136,7 +146,7 @@ export default function Map({ navigation }) {
   const sheetRef = React.useRef(null);
   return (
     <>
-      <HomeHeader />
+      <HomeHeader navigation={navigation} />
       <MapView
         provider={PROVIDER_GOOGLE}
         style={{ flex: 1 }}
