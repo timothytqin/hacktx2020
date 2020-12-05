@@ -162,19 +162,23 @@ export default function Map({ navigation }) {
       >
         {listingIds.map((id) => {
           const listing = listingsById[id];
-          return (
-            <Marker coordinate={listing.location}>
-              <CustomMarker listing={{ cost: listing.cost }} />
-              <Callout
-                style={{ borderRadius: 20, padding: 5 }}
-                onPress={() => navigation.navigate('Listing', { listing })}
-              >
-                <Text style={{ color: Theme.colors.gray1, fontWeight: '700' }}>
-                  {listing.name}
-                </Text>
-              </Callout>
-            </Marker>
-          );
+          if (listing && listing.location)
+            return (
+              <Marker coordinate={listing.location}>
+                <CustomMarker listing={{ cost: listing.cost }} />
+                <Callout
+                  style={{ borderRadius: 20, padding: 5 }}
+                  onPress={() => navigation.navigate('Listing', { listing })}
+                >
+                  <Text
+                    style={{ color: Theme.colors.gray1, fontWeight: '700' }}
+                  >
+                    {listing.name}
+                  </Text>
+                </Callout>
+              </Marker>
+            );
+          return null;
         })}
       </MapView>
       <BottomSheet
